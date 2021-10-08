@@ -2,10 +2,11 @@
 
 namespace PCPF.Domain.Model
 {
-    public class Entity
+    public abstract class Entity
     {
         public int Id { get; set; }
         public bool Status { get; set; }
+        public DateTime DataRegisto { get; set; }
         #region Comparações
 
         public override bool Equals(object obj)
