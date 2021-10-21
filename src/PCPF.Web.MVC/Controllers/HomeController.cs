@@ -18,6 +18,10 @@ namespace PCPF.Web.MVC.Controllers
             _logger = logger;
         }
 
+        public IActionResult Cliente()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();

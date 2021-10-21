@@ -1,0 +1,111 @@
+﻿
+@model PCPF.Domain.Model.Cliente
+
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 style="text-align:center">Todos Fornecedores</h2>
+
+
+<form>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    Denominação Fiscal
+                </th>
+                <th>
+                    Telefone
+                </th>
+                <th>
+                    E-mail
+                </th>
+                <th>
+                    Endereço
+                </th>
+
+                <th></th>
+            </tr>
+
+            @*@foreach (var item in Model)*@
+            <tr>
+                <td>
+                    Prince Farma
+                </td>
+                <td>
+                    +244 923848475
+                </td>
+                <td>
+                    geral@princefarma.com
+                </td>
+                <td>
+                    Kilamba kiaxi
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar")
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Lua Comercial
+                </td>
+                <td>
+                    +244 928252565
+                </td>
+                <td>
+                    lua@gmail.com
+                </td>
+                <td>
+                    Cazenga/Mãe Preta
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar")
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Shalina
+                </td>
+                <td>
+                    +244 936874562
+                </td>
+                <td>
+                    Shalina@outlook.com
+                </td>
+                <td>
+                    Cacuaco/Induve
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar")
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Kina Angola
+                </td>
+                <td>
+                    +244 948523210
+                </td>
+                <td>
+                    kinaangola@hotmail.com
+                </td>
+                <td>
+                    Cazenga/Praça dos Kwanzas
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar")
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
