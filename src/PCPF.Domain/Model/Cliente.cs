@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace PCPF.Domain.Model
-{
+namespace PCPF.Domain.Model 
+{ 
     public class Cliente:Entity
     {
-        public Cliente(){}
+        public Cliente(){} 
 
         public Cliente(string nome, string telefone, string documentoIdentificacao, string email)
         {
