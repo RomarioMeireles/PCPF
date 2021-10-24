@@ -4,7 +4,7 @@ namespace PCPF.Domain.Model
 {
     public abstract class Entity
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public bool Status { get; set; }
         public DateTime DataRegisto { get; set; }
         #region Comparações
