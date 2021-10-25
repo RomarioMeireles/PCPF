@@ -9,5 +9,5 @@ namespace PCPF.Domain.Notificacoes
         }
 
         public string Mensagem { get; }
-    }
+    } 
 }
