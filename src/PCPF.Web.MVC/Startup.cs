@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PCPF.Domain.Interfaces;
 using PCPF.Infra.Data.Repository;
+using System;
 
 namespace PCPF.Web.MVC
 {
@@ -22,7 +24,12 @@ namespace PCPF.Web.MVC
         {
             services.AddDbContext<PCPFContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IClienteRepository, ClienteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +45,7 @@ namespace PCPF.Web.MVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -50,6 +58,9 @@ namespace PCPF.Web.MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Admin",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
