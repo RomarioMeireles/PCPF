@@ -6,7 +6,7 @@ namespace PCPF.Domain.Model
     {
         public Fornecedor(){}
 
-        public Fornecedor(string denominacaoFiscal, string telefone, string email, string endereco, string utilizadorId)
+        public Fornecedor(string denominacaoFiscal, string telefone, string email, string endereco, int utilizadorId)
         {
             DenominacaoFiscal = denominacaoFiscal;
             Telefone = telefone;
@@ -19,7 +19,7 @@ namespace PCPF.Domain.Model
         public string Telefone { get; set; }
         public string Email { get; set; }
         public string Endereco { get; set; }
-        public string UtilizadorId { get; set; }
+        public int UtilizadorId { get; set; }
         public Utilizador Utilizador { get; set; }
         public ICollection<ProdutoFornecedor> produtos { get; set; }
     }

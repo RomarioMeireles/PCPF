@@ -17,14 +17,14 @@ namespace PCPF.Domain.Services
         }
         public async Task Adicionar(Utilizador entity)
         {
-            if (!ExecutarValidacao(new UtilizadorValidation(), entity)) return;
+            if (!ExecutarValidacao(new UserValidation(), entity)) return;
 
             await _IUtilizadorRepository.Adicionar(entity);
         }
 
         public async Task Atualizar(Utilizador entity)
         {
-            if (!ExecutarValidacao(new UtilizadorValidation(), entity)) return;
+            if (!ExecutarValidacao(new UserValidation(), entity)) return;
 
             await _IUtilizadorRepository.Atualizar(entity);
         }

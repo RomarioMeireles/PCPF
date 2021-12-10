@@ -1,0 +1,53 @@
+﻿@model ICollection<PCPF.Domain.Model.Cliente>
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card card-green" style="margin-left:1%;">
+    <div class="card-header">
+        <h2 style="text-align:center">LISTA DE CLIENTES</h2>
+    </div>
+
+    <div class="container">
+        <form method="get" class="apply_from" enctype="multipart/form-data">
+
+            <br />
+            <br />
+            <br />
+
+            <div class="table table-bordered">
+                <div style="overflow-x:auto;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background-color:#f5f5f5;text-align:center">
+                                <th> Nome </th>
+                                <th> Email </th>
+                                <th> Telefone </th>
+                                <th> Documento </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (PCPF.Domain.Model.Cliente cliente in Model)
+
+                            {
+                                <tr>
+                                    <td> @cliente.Nome </td>
+                                    <td> @cliente.Email </td>
+                                    <td> @cliente.Telefone </td>
+                                    <td> @cliente.DocumentoIdentificacao </td>
+                                    <td>
+                                        <a href="@Url.ActionLink("Contactar","Cliente", new { id = cliente.Id, })" class="btn btn-dark"> <span class="fa fa-address-card"></span> Contactar </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    

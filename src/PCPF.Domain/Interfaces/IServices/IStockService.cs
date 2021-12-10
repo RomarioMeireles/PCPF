@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PCPF.Domain.Interfaces.IServices
 {
-    interface IStockService
+   public interface IStockService
     {
         Task Adicionar(Stock entity);
         Task Atualizar(Stock entity);

@@ -1,0 +1,55 @@
+﻿@model PCPF.Domain.Model.Utilizador
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="custom_content custom">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-8 custom_right">
+                <div class="single_content_left">
+                    <form method="post" class="apply_from" enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+                        <h4 style="text-align:center">CADASTRO DE UTILIZADOR</h4>
+                        @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
+                        <br />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="label">Nome </div>
+                                    <input type="text" class="form-control" name="UserName">
+                                </div>
+                            </div>
+                        </div><!--end form group-->
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="label">Senha</div>
+                                    <input type="text" class="form-control" name="password">
+                                </div>
+                            </div>
+                        </div><!--end form group-->
+
+                       
+                        <div class="form-group" style="padding-left:50px">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-8">
+                                    <div class="text-field">
+                                        <input type="submit" value="Cadastrar" class="btn-outline-success">
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end form group-->
+
+
+                    </form>
+                </div>
+            </div>
+
+        </div><!--end row-->
+    </div>
+</div><!--end custom content-->

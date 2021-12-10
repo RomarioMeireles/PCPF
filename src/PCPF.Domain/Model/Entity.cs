@@ -4,9 +4,9 @@ namespace PCPF.Domain.Model
 {
     public abstract class Entity
     {
-        public int Id { get; set; } 
-        public bool Status { get; set; }
-        public DateTime DataRegisto { get; set; }
+        public int Id { get; set; }
+        public bool Status { get; set; } = true;
+        public DateTime DataRegisto { get; set; } = DateTime.Now;
         #region Comparações
 
         public override bool Equals(object obj)

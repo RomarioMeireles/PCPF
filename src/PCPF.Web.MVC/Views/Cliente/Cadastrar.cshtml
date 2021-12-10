@@ -1,11 +1,11 @@
 ﻿@model PCPF.Domain.Model.Cliente
 @{
     ViewBag.Title = "Cadastrar";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
 }
 
 <div class="custom_content custom">
-    <div class="container">
+    <div class="container" style="background-color:white; width:100%">
         <div class="row">
 
             <div class="col-xs-12 col-sm-8 custom_right">
@@ -13,70 +13,51 @@
                     <form method="post" class="apply_from" enctype="multipart/form-data">
 
                         @Html.AntiForgeryToken()
-                        <h4>FORMULÁRIO PARA CADASTRO DE CLIENTE</h4>
+                        <h4 style="text-align:center">FORMULÁRIO PARA CADASTRO DE CLIENTE</h4>
                         @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
-
-                        <div class="form-group">
+                        <br />
+                        <div class="form-group" style="padding-left:50px">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
-                                    <div class="label">Nome <span class="error">*</span></div>
-                                </div>
-                                <div class="col-xs-12 col-sm-8">
-                                    <div class="text-field">
+                                    <div class="label" style="background-color:white; color:black; font-size:medium; padding-top:5%">Nome </div>
                                         <input type="text" class="form-control" name="Nome">
-                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group">
+                        <div class="form-group" style="padding-left:50px">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="label">E-mail <span class="error">*</span></div>
-                                </div>
                                 <div class="col-xs-12 col-sm-8">
-                                    <div class="text-field">
+                                    <div class="label" style="background-color:white; color:black; font-size:medium">E-mail</div>
                                         <input type="text" class="form-control" name="Email">
-                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group">
+                        <div class="form-group" style="padding-left:50px">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
-                                    <div class="label">Telefone <span class="error">*</span></div>
-                                </div>
-                                <div class="col-xs-12 col-sm-8">
-                                    <div class="text-field">
-                                        <input type="text" class="form-control" name="Telefone">
-                                    </div>
+                                    <div class="label" style="background-color:white; color:black; font-size:medium">Telefone</div>
+                                    <input type="text" class="form-control" name="Telefone">
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group">
+                        <div class="form-group" style="padding-left:50px">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
-                                    <div class="label">Doc <span class="error">*</span></div>
-                                </div>
-                                <div class="col-xs-12 col-sm-8">
-                                    <div class="text-field">
+                                    <div class="label" style="background-color:white; color:black; font-size:medium">Doc</div>
                                         <input type="text" class="form-control" name="DocumentoIdentificacao">
-                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
                         
-
-                        <div class="form-group">
+                        
+                        <div class="form-group" style="padding-left:50px">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="label">  <span class="error"></span></div>
-                                </div>
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="text-field">
-                                        <input type="submit" value="Cadastrar" class="commonBtn">
+                                        <input type="submit" value="Cadastrar" class="btn-outline-success">
                                     </div>
                                 </div>
                             </div>

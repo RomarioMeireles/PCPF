@@ -6,7 +6,7 @@ namespace PCPF.Domain.Model
     {
         public Produto(){}
 
-        public Produto(string descricao, string imagem, string codigoBarras, string observacao, int quantidadeMinima, decimal valor, string utilizadorId)
+        public Produto(string descricao, string imagem, string codigoBarras, string observacao, int quantidadeMinima, decimal valor, int utilizadorId)
         {
             Descricao = descricao;
             Imagem = imagem;
@@ -23,7 +23,7 @@ namespace PCPF.Domain.Model
         public string Observacao { get; set; }
         public int QuantidadeMinima { get; set; }
         public decimal Valor { get; set; }
-        public string UtilizadorId { get; set; }
+        public int UtilizadorId { get; set; }
         public Utilizador Utilizador { get; set; }
         public ICollection<PedidoItem> ItensPedido { get; set; }
         public ICollection<ProdutoFornecedor> produtos { get; set; }
