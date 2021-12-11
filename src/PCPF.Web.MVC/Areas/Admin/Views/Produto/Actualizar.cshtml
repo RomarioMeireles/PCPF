@@ -1,5 +1,106 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PCPF.Domain.Model.Produto
+
 @{
+    ViewBag.Title = "Actualizar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
+<div class="card card-green">
+    <div class="card-header">
+        <h2 style="text-align:center">ACTUALIZAR INFORMAÇÕES DO PRODUTO</h2>
+    </div>
+    <div class="col-xs-12 col-sm-8 custom_right">
+        <div class="single_content_left">
+            <form method="post" class="apply_from" enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Descrição </div>
+                        <input type="text" class="form-control" name="Descricao">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Código de barra</div>
+                        <input type="text" class="form-control" name="Codigobarras">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Qtd mínima</div>
+                        <input type="text" class="form-control" name="QuantidadeMinima">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Valor</div>
+                        <input type="text" class="form-control" name="Valor">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="label">Observação </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="text-field">
+                                @*<textarea class="form-control" rows="10" cols="10" name="Observacao">@Model==null?"":Model.Observacao</textarea>*@
+                                @Html.TextAreaFor(model => model.Observacao, 10, 10, "")
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end form group-->
+
+        
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="label">
+                                Activo?
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.Status)
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+            <div class="col-xs-12 col-sm-8">
+                <div class="text-field">
+                    @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>*@
+
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="text-field">
+                                <input type="submit" value="Actualizar" class="btn btn-outline-dark" />
+
+                                <a href="/Admin/Produto/Lista" class="btn btn-danger" style="color:white">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end form group-->
+
+            </form>
+        </div>
+    </div>
+
+</div><!--end row-->

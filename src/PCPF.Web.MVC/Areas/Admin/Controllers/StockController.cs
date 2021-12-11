@@ -26,6 +26,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             IProdutoRepository iProdutoRepository, IUtilizadorRepository iUtilizadorRepository,
              INotificador notificador) : base(notificador)
         {
+            _IStockService = iStockService;
             _IStockRepository = iStockRepository;
             _IProdutoRepository = iProdutoRepository;
             _IUtilizadorRepository = iUtilizadorRepository;
@@ -65,15 +66,15 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             return RedirectToAction("Lista");
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> Actualizar(int id)
-        //{
-        //    var a = await _IStockRepository.ObterPorId(id);
+        [HttpGet]
+        public async Task<ActionResult> Actualizar(int id)
+        {
+            var a = await _IStockRepository.ObterPorId(id);
 
-        //    if (a == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        return View(a);
-        //}
+            if (a == null)
+                return BadRequest();
+            return View(a);
+        }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> Actualizar(Stock stock)

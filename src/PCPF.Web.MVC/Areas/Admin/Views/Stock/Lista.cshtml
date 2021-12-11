@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ICollection<PCPF.Domain.Model.Stock>
 @{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
+<div class="card card-green" style="margin-left:1%;">
+    <div class="card-header">
+        <h2 style="text-align:center">LISTA DO STOCK</h2>
+    </div>
+
+    <div class="container">
+        <form method="get" class="apply_from" enctype="multipart/form-data">
+
+            <a href="/Admin/Stock/Cadastrar" class="btn btn-dark" style="margin-left:86%; width:140px; margin-top:3px"> <span class="fas fa-book"></span> Novo Registo </a>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="table table-bordered">
+                <div style="overflow-x:auto;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background-color:#f5f5f5;text-align:center">
+
+                                <th> ProdutoId </th>
+                                <th> Nº lote </th>
+                                <th> Quantidade </th>
+                                <th> Data validade </th>
+                                <th> Operador </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (PCPF.Domain.Model.Stock f in Model)
+
+                            {
+                                <tr>
+                                    <td> @f.ProdutoId </td>
+                                    <td> @f.NumeroLote </td>
+                                    <td> @f.Quantidade </td>
+                                    <td> @f.DataValidade </td>
+                                    <td> @f.UtilizadorId </td>
+                                    <td>
+                                        <a href="@Url.ActionLink("Actualizar","Stock", new { id = f.Id, })" class="btn btn-dark"> <span class="fas fa-edit"></span> Editar </a>
+
+                                        @*@Html.ActionLink("Editar", "Actualizar", new { id = f.Id }) |*@
+                                    </td>
+
+                                </tr>
+                            }
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
