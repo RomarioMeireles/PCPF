@@ -36,7 +36,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {
-            ViewBag.ClienteId = new SelectList(await _IClienteRepository.ObterTodos(), "Id", "Name");
+            ViewBag.ClienteId = new SelectList(await _IClienteRepository.ObterTodos(), "Id", "Nome");
 
             return View();
         }
@@ -56,20 +56,20 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             }
             await _IPedidoService.Adicionar(pedido);
 
-            ViewBag.ClienteId = new SelectList(await _IClienteRepository.ObterTodos(), "Id", "Name");
+            ViewBag.ClienteId = new SelectList(await _IClienteRepository.ObterTodos(), "Id", "Nome");
 
             return RedirectToAction("Lista");
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> Actualizar(int id)
-        //{
-        //    var a = await _IPedidoRepository.ObterPorId(id);
+        [HttpGet]
+        public async Task<ActionResult> Actualizar(int id)
+        {
+            var a = await _IPedidoRepository.ObterPorId(id);
 
-        //    if (a == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        return View(a);
-        //}
+            if (a == null)
+                return BadRequest();
+            return View(a);
+        }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> Actualizar(Pedido pedido)

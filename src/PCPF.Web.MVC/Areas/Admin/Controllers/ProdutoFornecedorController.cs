@@ -28,6 +28,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             INotificador notificador) : base(notificador)
         {
             _IProdutoFornecedorRepository = iProdutoFornecedorRepository;
+            _IProdutoFornecedorService = iProdutoFornecedorService;
             _IProdutoRepository = iProdutoRepository;
             _IUtilizadorRepository = iUtilizadorRepository;
             _IFornecedorRepository = iFornecedorRepository;

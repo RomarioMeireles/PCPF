@@ -58,7 +58,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
 
             ViewBag.UtilizadorId = new SelectList(await _IUtilizadorRepository.ObterTodos(), "Id", "UserName");
 
-            return RedirectToAction("Lista");
+            return RedirectToAction("Lista","Fornecedor", new { area = "Admin" });
         }
 
         [HttpGet]
@@ -86,7 +86,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             }
             await _IFornecedorService.Atualizar(fornecedor);
 
-            return RedirectToAction("Lista");
+            return RedirectToAction("Lista","Fornecedor", new { area = "Admin" });
         }
     }
 }
