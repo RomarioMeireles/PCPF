@@ -16,6 +16,7 @@ namespace PCPF.Domain.Model.Validation
                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
             RuleFor(a => a.Valor)
                .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+     
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@model PCPF.Domain.Model.Cliente
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    dt {
+        margin-left: 5px;
+    }
+</style>
+
+<div class="card card-dark" style="margin-left:1%;">
+    <div class="card-header">
+        <h2 style="text-align:center">DETALHES DA CONTA</h2>
+    </div>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Telefone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DocumentoIdentificacao)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DocumentoIdentificacao)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DataRegisto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataRegisto)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+
+<a href="@Url.Action("Index")" class="btn btn-danger">Voltar </a>
+<a href="@Url.Action("Actualizar", new { id = Model.Id, })" class="btn btn-dark"> <span class="fas fa-edit"></span> Editar </a>

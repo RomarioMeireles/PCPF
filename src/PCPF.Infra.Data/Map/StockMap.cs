@@ -17,7 +17,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.ProdutoId).HasColumnType("int");
             builder.Property(a => a.Quantidade).HasColumnType("int").IsRequired();
             builder.Property(a => a.Status).HasColumnType("bit");
-            builder.Property(a => a.UtilizadorId).HasColumnType("nvarchar(128)").IsRequired();
+            builder.Property(a => a.UtilizadorId).HasColumnType("int").IsRequired();
             builder.Property(a => a.DataRegisto).HasColumnType("datetime").HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
             builder.Property(a => a.DataValidade).HasColumnType("date");
 

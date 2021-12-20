@@ -9,11 +9,11 @@ namespace PCPF.Web.MVC.Controllers
 {
     public class ContaController : Controller
     {
-     
         public ActionResult Login()
         {
             return View();
         }
+
         public ActionResult LogOff()
         {
             return View();

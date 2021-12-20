@@ -11,7 +11,7 @@ namespace PCPF.Infra.Data.Map
             builder.ToTable("Utilizador");
 
             builder.HasKey(a => a.Id);
-            builder.Property(a => a.Id).HasColumnType("nvarchar(128)");
+            builder.Property(a => a.Id).HasColumnType("int");
             builder.Property(a => a.Id).HasDefaultValueSql("newid()").ValueGeneratedOnAdd();
 
             builder.Property(a => a.Password).HasColumnType("varchar(150)");

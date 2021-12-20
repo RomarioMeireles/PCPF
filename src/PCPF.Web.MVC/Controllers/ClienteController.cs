@@ -13,12 +13,16 @@ namespace PCPF.Web.MVC.Controllers
     {
         private readonly IClienteRepository _IClienteRepository;
         private readonly IClienteService _IClienteService;
-
-        public ClienteController(IClienteRepository iClienteRepository, IClienteService iClienteService,
+        private readonly IUtilizadorRepository _IUtilizadorRepository;
+        private readonly IUtilizadorService _IUtilizadorService;
+        public ClienteController(IUtilizadorRepository iUtilizadorRepository, IUtilizadorService iUtilizadorService,
+            IClienteRepository iClienteRepository, IClienteService iClienteService,
             INotificador notificador) : base(notificador)
         {
             _IClienteRepository = iClienteRepository;
             _IClienteService = iClienteService;
+            _IUtilizadorRepository = iUtilizadorRepository;
+            _IUtilizadorService = iUtilizadorService;
         }
         public async Task<ActionResult> Lista()
         {
@@ -35,6 +39,11 @@ namespace PCPF.Web.MVC.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> Cadastrar(Cliente cliente)
         {
+            var userConta = new Utilizador()
+            {
+                UserName = cliente.Email,
+                Password = "PCPF@12345"
+            };
             var validacao = ExecutarValidacao(new ClienteValidation(), cliente);
             if (!validacao)
             {
@@ -45,8 +54,12 @@ namespace PCPF.Web.MVC.Controllers
                 }
                 return View(cliente);
             }
+
             await _IClienteService.Adicionar(cliente);
-            return RedirectToAction("Lista");
+            await _IUtilizadorService.Adicionar(userConta);
+            ViewBag.Mensagem = "Cadastro feito com sucesso! Sua senha é: PCPF@12345. Faça login para iniciar";
+            //return RedirectToAction("Lista");
+            return View();
         }
 
         [HttpGet]
@@ -75,6 +88,20 @@ namespace PCPF.Web.MVC.Controllers
             await _IClienteService.Atualizar(cliente);
 
             return RedirectToAction("Lista");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Detalhes(int id)
+        {
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Conta");
+            }
+            var a = await _IClienteRepository.ObterPorId(id);
+            if (a == null)
+                return BadRequest();
+
+            return View(a);
         }
     }
 }

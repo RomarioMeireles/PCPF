@@ -20,7 +20,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.Endereco).HasColumnType("varchar(200)");
             builder.Property(a => a.Status).HasColumnType("bit");
             builder.Property(a => a.Telefone).HasColumnType("varchar(20)");
-            builder.Property(a => a.UtilizadorId).HasColumnType("nvarchar(128)");
+            builder.Property(a => a.UtilizadorId).HasColumnType("int");
 
             builder.HasOne(a => a.Utilizador)
                 .WithMany(b => b.Fornercedores)

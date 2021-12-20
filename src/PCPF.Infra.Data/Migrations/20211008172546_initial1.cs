@@ -29,7 +29,9 @@ namespace PCPF.Infra.Data.Migrations
                 name: "Utilizador",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(128)", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                    //Id = table.Column<string>(type: "nvarchar(128)", nullable: false, defaultValueSql: "newid()"),
                     UserName = table.Column<string>(type: "varchar(150)", nullable: false),
                     Password = table.Column<string>(type: "varchar(150)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
@@ -75,7 +77,7 @@ namespace PCPF.Infra.Data.Migrations
                     Telefone = table.Column<string>(type: "varchar(20)", nullable: true),
                     Email = table.Column<string>(type: "varchar(150)", nullable: true),
                     Endereco = table.Column<string>(type: "varchar(200)", nullable: true),
-                    UtilizadorId = table.Column<string>(type: "nvarchar(128)", nullable: true),
+                    UtilizadorId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DataRegisto = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()")
                 },
@@ -102,7 +104,7 @@ namespace PCPF.Infra.Data.Migrations
                     Observacao = table.Column<string>(type: "varchar(100)", nullable: true),
                     QuantidadeMinima = table.Column<int>(type: "int", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UtilizadorId = table.Column<string>(type: "nvarchar(128)", nullable: true),
+                    UtilizadorId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DataRegisto = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
@@ -179,7 +181,7 @@ namespace PCPF.Infra.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProdutoId = table.Column<int>(type: "int", nullable: false),
                     FornecedorId = table.Column<int>(type: "int", nullable: false),
-                    UtilizadorId = table.Column<string>(type: "nvarchar(128)", nullable: true),
+                    UtilizadorId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DataRegisto = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()")
                 },
@@ -216,7 +218,7 @@ namespace PCPF.Infra.Data.Migrations
                     ProdutoId = table.Column<int>(type: "int", nullable: false),
                     NumeroLote = table.Column<string>(type: "varchar(20)", nullable: true),
                     DataValidade = table.Column<DateTime>(type: "date", nullable: true),
-                    UtilizadorId = table.Column<string>(type: "nvarchar(128)", nullable: false),
+                    UtilizadorId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DataRegisto = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()")
                 },

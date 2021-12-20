@@ -13,52 +13,52 @@
 <div class="card card-green" style="margin-left:1%;">
     <div class="card-header">
         <h2 style="text-align:center">LISTA DE FORNECEDORES</h2>
-        </div>
-
-        <div class="container">
-            <form method="get" class="apply_from" enctype="multipart/form-data">
-
-                <a href="/Admin/Fornecedor/Cadastrar" class="btn btn-dark" style="margin-left:86%; width:140px; margin-top:3px"> <span class="fas fa-book"></span> Novo Registo </a>
-
-                <br />
-                <br />
-                <br />
-
-                <div class="table table-bordered">
-                    <div style="overflow-x:auto;">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr style="background-color:#f5f5f5;text-align:center">
-
-                                    <th> Denominação fiscal </th>
-                                    <th> Email </th>
-                                    <th> Telefone </th>
-                                    <th> Endereço </th>
-                                    <th> Cadastrado Por: </th>
-                                    <th></th>
-                                </tr>
-
-                                @foreach (PCPF.Domain.Model.Fornecedor f in Model)
-
-                                {
-                                    <tr>
-                                        <td> @f.DenominacaoFiscal </td>
-                                        <td> @f.Email </td>
-                                        <td> @f.Telefone </td>
-                                        <td> @f.Endereco </td>
-                                        <td> @f.UtilizadorId </td>
-                                        <td>
-                                            <a href="@Url.ActionLink("Actualizar","Fornecedor", new { id = f.Id, })" class="btn btn-dark"> <span class="fas fa-edit"></span> Editar </a>
-
-        @*@Html.ActionLink("Editar", "Actualizar", new { id = f.Id }) |*@
-                                        </td>
-
-                                    </tr>
-                                }
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
+
+    <div class="container">
+        <form method="get" class="apply_from" enctype="multipart/form-data">
+
+            <a href="/Admin/Fornecedor/Cadastrar" class="btn btn-dark" style="margin-left:86%; width:140px; margin-top:3px"> <span class="fas fa-book"></span> Novo Registo </a>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="table table-bordered">
+                <div style="overflow-x:auto;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background-color:#f5f5f5;text-align:center">
+
+                                <th> Nome </th>
+                                <th> Email </th>
+                                <th> Telefone </th>
+                                <th> Endereço </th>
+                                <th> Cadastrado Por: </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (PCPF.Domain.Model.Fornecedor f in Model)
+
+                            {
+                                <tr>
+                                    <td> @f.DenominacaoFiscal </td>
+                                    <td> @f.Email </td>
+                                    <td> @f.Telefone </td>
+                                    <td> @f.Endereco </td>
+                                    <td> @f.UtilizadorId </td>
+                                    <td>
+                                        <a href="@Url.ActionLink("Actualizar","Fornecedor", new { id = f.Id, })" class="btn btn-dark"> <span class="fas fa-edit"></span> Editar </a>
+
+                                        @*@Html.ActionLink("Editar", "Actualizar", new { id = f.Id }) |*@
+                                    </td>
+
+                                </tr>
+                            }
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

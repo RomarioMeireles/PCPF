@@ -1,8 +1,16 @@
 ﻿@model PCPF.Domain.Model.Cliente
 @{
     ViewBag.Title = "Cadastrar";
-    Layout = "~/Views/Shared/_Layout.cshtml";    
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .form-group {
+        padding-left: 60px;
+    }
+</style>
+
+
 
 <div class="custom_content custom">
     <div class="container" style="background-color:white; width:100%">
@@ -13,51 +21,68 @@
                     <form method="post" class="apply_from" enctype="multipart/form-data">
 
                         @Html.AntiForgeryToken()
-                        <h4 style="text-align:center">FORMULÁRIO PARA CADASTRO DE CLIENTE</h4>
+                        <h4 style="text-align:center; color:green">FORMULÁRIO PARA CADASTRO DE CLIENTE</h4>
                         @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
                         <br />
-                        <div class="form-group" style="padding-left:50px">
+
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="label" style="background-color:white; color:black; font-size:medium; padding-top:5%">Nome </div>
+                                    <div>
                                         <input type="text" class="form-control" name="Nome">
+                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group" style="padding-left:50px">
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="label" style="background-color:white; color:black; font-size:medium">E-mail</div>
+                                    <div>
                                         <input type="text" class="form-control" name="Email">
+                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group" style="padding-left:50px">
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="label" style="background-color:white; color:black; font-size:medium">Telefone</div>
-                                    <input type="text" class="form-control" name="Telefone">
+                                    <div>
+                                        <input type="text" class="form-control" name="Telefone">
+                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
 
-                        <div class="form-group" style="padding-left:50px">
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="label" style="background-color:white; color:black; font-size:medium">Doc</div>
+                                    <div>
                                         <input type="text" class="form-control" name="DocumentoIdentificacao">
+                                    </div>
                                 </div>
                             </div>
                         </div><!--end form group-->
-                        
-                        
-                        <div class="form-group" style="padding-left:50px">
+
+                        <br />
+
+                        <div class="form-group" style="padding-left:5%">
+                            <div class="col-md-offset-2 col-md-10" style="color:green">
+                                @ViewBag.Mensagem
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="text-field">
-                                        <input type="submit" value="Cadastrar" class="btn-outline-success">
+                                        <input type="submit" value="Cadastrar" class="btn btn-outline-success">
+                                        <a href="/Conta/Login" class="btn btn-danger" style="color:white">Login</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,3 +96,4 @@
         </div><!--end row-->
     </div>
 </div><!--end custom content-->
+    </div>
