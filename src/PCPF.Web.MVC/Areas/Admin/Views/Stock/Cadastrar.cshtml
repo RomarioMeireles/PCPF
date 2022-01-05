@@ -6,7 +6,7 @@
 
 <div class="card card-green">
     <div class="card-header">
-        <h2 style="text-align:center">REGISTAR ENTRADA NO STOCK</h2>
+        <h3>REGISTAR ENTRADA NO STOCK</h3>
     </div>
 
     <div class="col-xs-12 col-sm-8 custom_right">
@@ -16,7 +16,6 @@
                 @Html.AntiForgeryToken()
                 <br />
                 @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
-                <br />
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
@@ -60,7 +59,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                <input type="submit" value="Cadastrar" class="btn btn-outline-dark" />
+                                <input type="submit" value="Cadastrar" class="btn btn-primary" />
                                 <a href="/Admin/Produto/Lista" class="btn btn-danger" style="color:white">Voltar</a>
 
                             </div>

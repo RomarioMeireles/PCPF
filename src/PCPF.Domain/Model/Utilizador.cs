@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PCPF.Domain.Model.ValueObjects;
+using System.Collections.Generic;
 
 namespace PCPF.Domain.Model
 {
@@ -13,7 +14,8 @@ namespace PCPF.Domain.Model
 
         public string UserName { get; set; }
         public string Password { get; set; }
-       
+        public Perfil Perfil { get; set; }
+
         public ICollection<Fornecedor> Fornercedores { get; set; }
         public ICollection<Produto> Produtos { get; set; }
         public ICollection<ProdutoFornecedor> produtoFornecedors { get; set; }

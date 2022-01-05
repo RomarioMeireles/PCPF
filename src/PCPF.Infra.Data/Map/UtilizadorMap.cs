@@ -18,6 +18,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.DataRegisto).HasColumnType("datetime");
             builder.Property(a => a.UserName).HasColumnType("varchar(150)").IsRequired();
             builder.Property(a => a.Status).HasColumnType("bit");
+            builder.Property(a => a.Perfil).HasConversion<byte>().HasMaxLength(1).IsRequired();
         }
     }
 }

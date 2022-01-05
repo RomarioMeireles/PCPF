@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PCPF</title>
+    <title>Plataforma de Comercialização de Produtos Farmacêuticos</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -76,18 +76,18 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/Home/Index" class="brand-link">
-                <img src="" alt="Imagem" class="brand-image img-circle elevation-3"
-                     style="opacity: .8">
-                <span class="brand-text font-weight-light">PCPF</span>
-            </a>
+            <!--<a href="/Home/Index" class="brand-link">-->
+                @*<img src="" alt="Imagem" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">*@
+                <!--<span class="brand-text font-weight-light">PCPF</span>
+            </a>-->
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="" class="img-circle elevation-2" alt="User Image">
+                        <img src="~/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
@@ -106,7 +106,7 @@
                         <li class="nav-header">FACTURAÇÃO</li>
 
                         <li class="nav-item">
-                            <a href="/Cliente/Lista" class="nav-link">
+                            <a href="/Admin/Cliente/Lista" class="nav-link">
                                 <i class="nav-icon fas fa-person-booth"></i>
                                 <p>
                                     Cliente
@@ -115,28 +115,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Facturacao/Factura/lista-factura" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                 <p>
-                                    Factura
+                                    Pedido
                                     @*<span class="right badge badge-danger">New</span>*@
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Facturacao/Marcacao/lista-marcacao" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-calendar"></i>
                                 <p>
-                                    Marcação
-                                    @*<span class="right badge badge-danger">New</span>*@
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Facturacao/Servico/lista-servico" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Serviço
+                                    Pagamento
                                     @*<span class="right badge badge-danger">New</span>*@
                                 </p>
                             </a>
@@ -159,35 +150,12 @@
                                 <li class="nav-item">
                                     <a href="/Facturacao/Relatorio/ControloFacturacao" class="nav-link">
                                         <i class="far fa-info nav-icon"></i>
-                                        <p>Controlo de facturação</p>
+                                        <p>Controlo de pagamentos</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Documento
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Facturacao/TipoDocumento/lista-tipo-documento" class="nav-link">
-                                        <i class="far fa-info nav-icon"></i>
-                                        <p>Tipo de Documento</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Facturacao/Documento/lista-documento" class="nav-link">
-                                        <i class="far fa-info nav-icon"></i>
-                                        <p>Documentos</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header">STOCK</li>
+                        <li class="nav-header">PRODUTO</li>
                         <li class="nav-item">
                             <a href="/Admin/Fornecedor/Lista" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
@@ -198,30 +166,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/Stock/Categoria/lista-de-categoria" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Categoria
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/Stock/Lista" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Unidade
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Stock/TipoDocumentoMovimento/lista-tipo-documento-movimento" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Tipo de doc. movimento
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="/Admin/Produto/Lista" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
@@ -229,28 +173,13 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-recycle"></i>
+                        <li class="nav-item">
+                            <a href="/Admin/Stock/Lista" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
                                 <p>
-                                    Movimento no Stock
-                                    <i class="right fas fa-angle-left"></i>
+                                    Stock
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Admin/Stock/Lista" class="nav-link">
-                                        <i class="far fa-info nav-icon"></i>
-                                        <p>Registar entrada</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Stock/Inventario/registar-saida" class="nav-link">
-                                        <i class="far fa-info nav-icon"></i>
-                                        <p>Registar saída</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -262,21 +191,21 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/Stock/Relatorio/ProdutoStockBaixo" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="far fa-info nav-icon"></i>
                                         <p>Produtos com stock baixo</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/Stock/Relatorio/ProdutoMaisUtilizado" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="far fa-info nav-icon"></i>
                                         <p>Produtos mais utilizados</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/Stock/Relatorio/HistoricoMovimento" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="far fa-info nav-icon"></i>
-                                        <p>Histórico de movimento</p>
+                                        <p>Inventário</p>
                                     </a>
                                 </li>
                             </ul>
@@ -296,7 +225,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">PCPF</h1>
+                            <h1 class="m-0 text-dark">Plataforma de Comercialização de Produtos Farmacêuticos</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -318,7 +247,17 @@
                     </div>
                 </div>
             </div>
-            <!-- /.content-wrapper -->
+
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+
+
+                    <!-- /.content-wrapper -->
             <footer class="main-footer">
                 <strong>Copyright &copy; @DateTime.Now.Year <a href="">PCPF</a>.</strong>
                 Todos os direitos reservados.
@@ -327,12 +266,7 @@
                 </div>
             </footer>
 
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
-        </div>
+
         <!-- ./wrapper -->
         <!-- jQuery -->
         <script src="~/plugins/jquery/jquery.min.js"></script>
