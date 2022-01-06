@@ -22,8 +22,6 @@ namespace PCPF.Web.MVC.Controllers
         {
             if (!_notificador.TemNotificacao()) return true;
 
-            var notificacoes = _notificador.ObterNotificacoes();
-            notificacoes.ForEach(c => ViewData.ModelState.AddModelError(string.Empty, c.Mensagem));
             return false;
         }
         protected IEnumerable<string> ObterMensagensErro()

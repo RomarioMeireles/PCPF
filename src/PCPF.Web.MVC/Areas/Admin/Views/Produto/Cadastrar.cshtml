@@ -4,44 +4,43 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="card card-green">
+<div class="card card-gray">
     <div class="card-header">
-        <h3 class="card-title">CADASTRAR PRODUTO</h3>
+        <h3 class="card-title">Cadastrar Produto</h3>
     </div>
 
     <div class="col-xs-12 col-sm-8 custom_right">
         <div class="single_content_left">
             <form method="post" class="apply_from" enctype="multipart/form-data">
 
-                @Html.AntiForgeryToken()
                 <br />
-                @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
+                @await Component.InvokeAsync("Summary")
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Descrição </div>
-                        <input type="text" class="form-control" name="Descricao">
+                        <input class="form-control" asp-for="Descricao">
                     </div>
                 </div><!--end form group-->
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Código de barra</div>
-                        <input type="text" class="form-control" name="Codigobarras">
+                        <input class="form-control" asp-for="CodigoBarras">
                     </div>
                 </div><!--end form group-->
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Qtd mínima</div>
-                        <input type="text" class="form-control" name="QuantidadeMinima">
+                        <input class="form-control" asp-for="QuantidadeMinima">
                     </div>
                 </div><!--end form group-->
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Valor</div>
-                        <input type="text" class="form-control" name="Valor">
+                        <input class="form-control" name="Valor" asp-for="Valor">
                     </div>
                 </div><!--end form group-->
 
@@ -59,14 +58,13 @@
                         </div>
                     </div>
                 </div><!--end form group-->
-
                 @*<div class="form-group">
-                    <div class="col-xs-12 col-sm-8">
-                        <div class="text-field">
-                            @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>*@
+            <div class="col-xs-12 col-sm-8">
+                <div class="text-field">
+                    @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>*@
                 <!--end form group-->
 
 
@@ -74,8 +72,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                <input type="submit" value="Cadastrar" class="btn btn-success" />
-                                <a href="/Admin/Produto/Lista" class="btn btn-danger" style="color:white">Voltar</a>
+                                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                                <a href="javascript:window.history.back();" class="btn btn-danger" style="color:white">Voltar</a>
 
                             </div>
                         </div>

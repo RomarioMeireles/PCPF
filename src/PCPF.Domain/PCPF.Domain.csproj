@@ -8,4 +8,8 @@
     <PackageReference Include="FluentValidation" Version="10.3.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PCPF.Infra.CrossCuting\PCPF.Infra.CrossCuting.csproj" />
+  </ItemGroup>
+
 </Project>

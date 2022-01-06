@@ -91,8 +91,8 @@
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
-                            @if (HttpContextAccessor.HttpContext.Session.GetString("nome") != null)
-                                @HttpContextAccessor.HttpContext.Session.GetString("nome").ToString()
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("userName") != null)
+                                @HttpContextAccessor.HttpContext.Session.GetString("userName").ToString()
                         </a>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/Admin/Produto/Lista" class="nav-link">
+                            <a href="/Admin/Produto/lista-de-produtos" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Produto

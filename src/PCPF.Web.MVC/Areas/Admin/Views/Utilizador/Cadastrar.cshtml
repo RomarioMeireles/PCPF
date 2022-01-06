@@ -1,0 +1,53 @@
+﻿@model PCPF.Domain.Model.Utilizador
+@{
+    ViewBag.Title = "Cadastrar Utilizador";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card card-gray">
+    <div class="card-header">
+        <h3 class="card-title">Cadastrar Utilizador</h3>
+    </div>
+
+    <div class="col-xs-12 col-sm-8 custom_right">
+        <div class="single_content_left">
+            <form method="post" class="apply_from">
+
+                <br />
+                @await Component.InvokeAsync("Summary")
+                <br />
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Nome</div>
+                        <input class="form-control" asp-for="Nome">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">UserName</div>
+                        <input class="form-control" asp-for="UserName">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Password</div>
+                        <input type="password" class="form-control" asp-for="Password">
+                    </div>
+                </div><!--end form group-->
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="text-field">
+                                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                                <a href="javascript:window.history.back();" class="btn btn-danger" style="color:white">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end form group-->
+            </form>
+        </div>
+    </div>
+</div><!--end row-->

@@ -86,24 +86,28 @@
                         <form action="#" class="navbar-search pull-left">
                             <input type="text" placeholder="Procurar" class="search-query span2">
                         </form>
-                        @using PCPF.Domain.Model
-                        @model PCPF.Domain.Model.Utilizador
+                        @if (TempData["ErroLogin"] != null)
+                        {
+                            <b style="color:red;">@TempData["ErroLogin"]</b>
+                        }
+                        @*@using PCPF.Domain.Model
+        @model PCPF.Domain.Model.Utilizador*@
 
                         <ul class="nav pull-right">
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
                                 <div class="dropdown-menu">
-                                    <form class="form-horizontal loginFrm">
+                                    <form class="form-horizontal loginFrm" method="post" action="/Home/Login">
                                         <div class="control-group">
-                                            <input type="text" class="span2" id="inputEmail" placeholder="Email">
+                                            <input type="text" class="span2" id="inputEmail" placeholder="UserName" name="userName">
                                         </div>
                                         <div class="control-group">
-                                            <input type="password" class="span2" id="inputPassword" placeholder="Password">
+                                            <input type="password" class="span2" id="inputPassword" placeholder="Password" name="password">
                                         </div>
                                         <div class="control-group">
-                                            <label class="checkbox">
-                                                <input type="checkbox"> Remember me
-                                            </label>
+                                            @*<label class="checkbox">
+                                <input type="checkbox"> Remember me
+                            </label>*@
                                             <button type="submit" class="shopBtn btn-block">Sign in</button>
                                         </div>
                                     </form>

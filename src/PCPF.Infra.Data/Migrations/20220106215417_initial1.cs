@@ -30,10 +30,11 @@ namespace PCPF.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                    .Annotation("SqlServer:Identity", "1, 1"),
-                    //Id = table.Column<string>(type: "nvarchar(128)", nullable: false, defaultValueSql: "newid()"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "varchar(150)", nullable: false),
                     UserName = table.Column<string>(type: "varchar(150)", nullable: false),
                     Password = table.Column<string>(type: "varchar(150)", nullable: true),
+                    Perfil = table.Column<byte>(type: "tinyint", maxLength: 1, nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     DataRegisto = table.Column<DateTime>(type: "datetime", nullable: false)
                 },

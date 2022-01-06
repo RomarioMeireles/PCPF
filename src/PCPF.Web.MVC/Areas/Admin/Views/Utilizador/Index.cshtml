@@ -1,9 +1,9 @@
-﻿@model ICollection<PCPF.Domain.Model.Produto>
+﻿@model IEnumerable<PCPF.Domain.Model.Utilizador>
+@using PCPF.Web.MVC.Extensions;
 @{
-    ViewBag.Title = "Lista";
+    ViewBag.Title = "Lista de Utilizadores";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Listagem</h3>
@@ -14,17 +14,16 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <a href="/Admin/Produto/novo-produto" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />
+            <a href="/Admin/Utilizador/Cadastrar" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />
             <div class="row">
                 <div class="col-sm-12">
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th></th>
-                                <th tabindex="0" class="sorting_1">Descrição</th>
-                                <th>CodigoBarras</th>
-                                <th>Quantidade Mínima</th>
-                                <th>Valor</th>
+                                <th tabindex="0" class="sorting_1">Nome</th>
+                                <th>UserName</th>
+                                <th>Perfil</th>
+                                <th>Situação</th>
                                 <th>Data de registo</th>
                                 <th></th>
                             </tr>
@@ -35,25 +34,23 @@
                             @foreach (var item in Model)
                             {
                                 <tr role="row" class="even">
-                                    <td></td>
-                                    <td tabindex="0" class="sorting_1">@item.Descricao</td>
-                                    <td>@item.CodigoBarras</td>
-                                    <td>@item.QuantidadeMinima</td>
-                                    <td>@item.Valor.ToString("N")</td>
+                                    <td tabindex="0" class="sorting_1">@item.Nome</td>
+                                    <td>@item.UserName</td>
+                                    <td>@Enum.GetName(typeof(PCPF.Domain.Model.ValueObjects.Perfil), item.Perfil)</td>
+                                    <td style="color:@this.Status(item.Status).Item2; font-weight:bold">@this.Status(item.Status).Item1</td>
                                     <td>@item.DataRegisto</td>
                                     <td>
-                                        <a class="btn btn-danger" href=""><spam class="fa fa-trash"></spam> </a>
+                                        <a class="btn btn-danger" href="/Facturacao/Cliente/dados-do-cliente/@item.Id"><spam class="fa fa-trash"></spam> </a>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                         <tfoot>
                             <tr role="row">
-                                <th></th>
-                                <th tabindex="0" class="sorting_1">Descrição</th>
-                                <th>CodigoBarras</th>
-                                <th>Quantidade Mínima</th>
-                                <th>Valor</th>
+                                <th tabindex="0" class="sorting_1">Nome</th>
+                                <th>UserName</th>
+                                <th>Perfil</th>
+                                <th>Situação</th>
                                 <th>Data de registo</th>
                                 <th></th>
                             </tr>

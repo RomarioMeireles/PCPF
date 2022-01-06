@@ -10,7 +10,7 @@ using PCPF.Infra.Data.Repository;
 namespace PCPF.Infra.Data.Migrations
 {
     [DbContext(typeof(PCPFContext))]
-    [Migration("20211008172546_initial1")]
+    [Migration("20220106215417_initial1")]
     partial class initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,8 +83,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.Property<string>("Telefone")
                         .HasColumnType("varchar(20)");
 
-                    b.Property<string>("UtilizadorId")
-                        .HasColumnType("nvarchar(128)");
+                    b.Property<int>("UtilizadorId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -232,8 +232,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UtilizadorId")
-                        .HasColumnType("nvarchar(128)");
+                    b.Property<int>("UtilizadorId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
@@ -266,8 +266,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UtilizadorId")
-                        .HasColumnType("nvarchar(128)");
+                    b.Property<int>("UtilizadorId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -307,9 +307,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UtilizadorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)");
+                    b.Property<int>("UtilizadorId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -322,16 +321,24 @@ namespace PCPF.Infra.Data.Migrations
 
             modelBuilder.Entity("PCPF.Domain.Model.Utilizador", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(128)")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataRegisto")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
                     b.Property<string>("Password")
                         .HasColumnType("varchar(150)");
+
+                    b.Property<byte>("Perfil")
+                        .HasMaxLength(1)
+                        .HasColumnType("tinyint");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -350,7 +357,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.HasOne("PCPF.Domain.Model.Utilizador", "Utilizador")
                         .WithMany("Fornercedores")
                         .HasForeignKey("UtilizadorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Utilizador");
                 });
@@ -401,7 +409,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.HasOne("PCPF.Domain.Model.Utilizador", "Utilizador")
                         .WithMany("Produtos")
                         .HasForeignKey("UtilizadorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Utilizador");
                 });
@@ -423,7 +432,8 @@ namespace PCPF.Infra.Data.Migrations
                     b.HasOne("PCPF.Domain.Model.Utilizador", "Utilizador")
                         .WithMany("produtoFornecedors")
                         .HasForeignKey("UtilizadorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Fornecedor");
 

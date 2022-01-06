@@ -1,5 +1,7 @@
 ﻿using PCPF.Domain.Model.ValueObjects;
+using PCPF.Infra.CrossCuting.Seguranca;
 using System.Collections.Generic;
+
 
 namespace PCPF.Domain.Model
 {
@@ -12,6 +14,7 @@ namespace PCPF.Domain.Model
             Password = password;            
         }
 
+        public string Nome { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public Perfil Perfil { get; set; }
@@ -20,5 +23,12 @@ namespace PCPF.Domain.Model
         public ICollection<Produto> Produtos { get; set; }
         public ICollection<ProdutoFornecedor> produtoFornecedors { get; set; }
         public ICollection<Stock> Stocks { get; set; }
+
+        public string ToHashPassword()
+        {
+            var passHash = Criptografia.CriptografarSenha(Password);
+            Password = passHash;
+            return passHash;
+        }
     }
 }

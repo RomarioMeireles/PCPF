@@ -12,10 +12,11 @@ namespace PCPF.Infra.Data.Map
 
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).HasColumnType("int");
-            builder.Property(a => a.Id).HasDefaultValueSql("newid()").ValueGeneratedOnAdd();
+            builder.Property(a => a.Id).ValueGeneratedOnAdd();
 
             builder.Property(a => a.Password).HasColumnType("varchar(150)");
             builder.Property(a => a.DataRegisto).HasColumnType("datetime");
+            builder.Property(a => a.Nome).HasColumnType("varchar(150)").IsRequired();
             builder.Property(a => a.UserName).HasColumnType("varchar(150)").IsRequired();
             builder.Property(a => a.Status).HasColumnType("bit");
             builder.Property(a => a.Perfil).HasConversion<byte>().HasMaxLength(1).IsRequired();
