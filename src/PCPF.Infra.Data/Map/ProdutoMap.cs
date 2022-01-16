@@ -16,7 +16,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.CodigoBarras).HasColumnType("varchar(128)");
             builder.Property(a => a.DataRegisto).HasColumnType("datetime");
             builder.Property(a => a.Descricao).HasColumnType("varchar(80)").IsRequired();
-            builder.Property(a => a.Imagem).HasColumnType("varchar(50)");
+            builder.Property(a => a.Imagem).HasColumnType("varchar(150)");
             builder.Property(a => a.Observacao).HasColumnType("varchar(100)");
             builder.Property(a => a.QuantidadeMinima).HasColumnType("int").IsRequired();
             builder.Property(a => a.Status).HasColumnType("bit");

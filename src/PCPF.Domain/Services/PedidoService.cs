@@ -22,6 +22,11 @@ namespace PCPF.Domain.Services
             await _IPedidoRepository.Adicionar(entity);
         }
 
+        public async Task AdicionarPedidoRascunho(PedidoRascunho pedidoRascunho)
+        {
+            await _IPedidoRepository.AdicionarPedidoRascunho(pedidoRascunho);
+        }
+
         public async Task Atualizar(Pedido entity)
         {
             if (!ExecutarValidacao(new PedidoValidation(), entity)) return;

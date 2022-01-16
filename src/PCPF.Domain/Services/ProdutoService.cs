@@ -27,6 +27,19 @@ namespace PCPF.Domain.Services
             await _IProdutoRepository.Adicionar(entity);
         }
 
+        public void Adicionar(Produto entity, Stock stock)
+        {
+            if (!ExecutarValidacao(new ProdutoValidation(), entity)) return;
+            if (_IProdutoRepository.Buscar(c => c.Descricao == entity.Descricao && c.CodigoBarras == entity.CodigoBarras).Result.Count() > 0)
+            {
+                Notificar("O produto indicado já se encontra na base de dados!");
+                return;
+            }
+            if (!ExecutarValidacao(new StockValidation(), stock)) return;
+
+            _IProdutoRepository.Adicionar(entity, stock);
+        }
+
         public async Task Atualizar(Produto entity)
         {
             if (!ExecutarValidacao(new ProdutoValidation(), entity)) return;

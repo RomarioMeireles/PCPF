@@ -201,6 +201,36 @@ namespace PCPF.Infra.Data.Migrations
                     b.ToTable("PedidoItem");
                 });
 
+            modelBuilder.Entity("PCPF.Domain.Model.PedidoRascunho", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PedidoRascunho");
+                });
+
             modelBuilder.Entity("PCPF.Domain.Model.Produto", b =>
                 {
                     b.Property<int>("Id")
@@ -219,7 +249,7 @@ namespace PCPF.Infra.Data.Migrations
                         .HasColumnType("varchar(80)");
 
                     b.Property<string>("Imagem")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("varchar(100)");

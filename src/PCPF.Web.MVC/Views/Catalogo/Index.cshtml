@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PCPF.Domain.Model.Produto>
+<h3>Produtos </h3>
+<ul class="thumbnails">
+    @foreach (var item in Model)
+    {
+        <li class="span3">
+            <div class="thumbnail">
+                <a href="/Catalogo/detalhes-produto/@item.Id" class="overlay"></a>
+                <a class="zoomTool" href="/Catalogo/detalhes-produto/@item.Id" title="add to cart"><span class="icon-search"></span> VISUALIZAR</a>
+                <a href="/Catalogo/detalhes-produto/@item.Id"><img src="/imagens/@item.Imagem" alt="" style="height:150px;"></a>
+                <div class="caption cntr">
+                    <p style="font-size: 13px; width: 200px;">@item.Descricao</p>
+                    <p style="font-size: 13px;"><strong> AKZ @item.Valor.ToString("N")</strong></p>
+                    <h4><a class="shopBtn" href="/Catalogo/detalhes-produto/@item.Id" title="add to cart"> + Pedido </a></h4>
+                    @*<div class="actionList">
+                        <a class="pull-left" href="#">Add to Wish List </a>
+                        <a class="pull-left" href="#"> Add to Compare </a>
+                    </div>*@
+                    <br class="clr">
+                </div>
+            </div>
+        </li>
+    }
+</ul>

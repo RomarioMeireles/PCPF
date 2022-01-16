@@ -21,5 +21,10 @@ namespace PCPF.Domain.Model
         public int UtilizadorId { get; private set; }
         public Utilizador Utilizador { get; set; }
         public Produto Produto { get; set; }
+
+        public void SetProdutoId(int id)
+        {
+            ProdutoId = id;
+        }
     }
 }

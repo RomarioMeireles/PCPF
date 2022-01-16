@@ -1,4 +1,4 @@
-﻿@model PCPF.Domain.Model.Produto
+﻿@model PCPF.Web.MVC.Models.ProdutoViewModel
 @{
     ViewBag.Title = "Cadastrar";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -18,10 +18,25 @@
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
+                        <div class="label">Imagem </div>
+                        <input class="form-control" name="ImagemNome" id="ImagemNome" readonly>
+                        <span class="input-group-btn">
+                            <label class="btn btn-primary" for="ImagemUpload">
+                                <input class="form-control" asp-for="Imagem" type="file" 
+                                       onchange="$('#ImagemNome').val(this.files[0].name); $('#Imagem').blur();">
+                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
                         <div class="label">Descrição </div>
                         <input class="form-control" asp-for="Descricao">
                     </div>
-                </div><!--end form group-->
+                </div>
+                <!--end form group-->
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
@@ -40,9 +55,30 @@
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Valor</div>
-                        <input class="form-control" name="Valor" asp-for="Valor">
+                        <input class="form-control" asp-for="Valor">
                     </div>
-                </div><!--end form group-->
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Quantidade em Stock</div>
+                        <input class="form-control" asp-for="Quantidade">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Nº Lote</div>
+                        <input class="form-control" asp-for="NumeroLote">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="label">Data de Validade</div>
+                        <input class="form-control" type="date" asp-for="DataValidade">
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="row">
@@ -53,7 +89,7 @@
                             <div class="text-field">
                                 @*<textarea class="form-control" rows="10" cols="10" name="Observacao">@Model==null?"":Model.Observacao</textarea>*@
                                 @*@Html.TextAreaFor(model => model.Observacao, 10, 10, "")*@
-                                <textarea id="Observacao" name="Observacao" style="heigth='10px'; width='10px'" class="form-control"></textarea>
+                                <textarea id="Observacao" name="Observacao" style="height:100px; width:700px" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>

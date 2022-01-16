@@ -35,7 +35,9 @@
                             @foreach (var item in Model)
                             {
                                 <tr role="row" class="even">
-                                    <td></td>
+                                    <td>
+                                        <img src="~/imagens/@item.Imagem" class="img-circle" width="60" height="40" />
+                                    </td>
                                     <td tabindex="0" class="sorting_1">@item.Descricao</td>
                                     <td>@item.CodigoBarras</td>
                                     <td>@item.QuantidadeMinima</td>

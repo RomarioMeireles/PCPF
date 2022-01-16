@@ -6,6 +6,9 @@ using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
+using PCPF.Web.MVC.Models;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
@@ -41,20 +44,28 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
 
         [Route("novo-produto")]
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(Produto produto)
+        public async Task<ActionResult> Cadastrar(ProdutoViewModel pr)
         {
-            produto.UtilizadorId = (int) HttpContext.Session.GetInt32("userId");
+            if (!ModelState.IsValid) return View(pr);
 
-            if (!ModelState.IsValid)
+            var imgPrefixo = Guid.NewGuid() + "_";
+            if (!await UploadArquivo(pr.Imagem, imgPrefixo))
             {
-                return View(produto);
+                return View(pr);
             }
+
+            var userId = Convert.ToInt32(HttpContext.Session.GetInt32("userId"));
+
+            var combinedPath = string.Concat(imgPrefixo, pr.Imagem.FileName);
+
+            var produto = new Produto(pr.Descricao, combinedPath, pr.CodigoBarras, pr.Observacao, pr.QuantidadeMinima, pr.Valor, userId);
+            var stock = new Stock(pr.Quantidade, 0, pr.NumeroLote, pr.DataValidade, userId);
             
-            await _IProdutoService.Adicionar(produto);
+            _IProdutoService.Adicionar(produto, stock);
 
             if (!OperacaoValida())
             {
-                return View(produto);
+                return View(pr);
             }
             TempData["Sucesso"] = "Operação executada com sucesso!";
             return RedirectToAction("Lista");
@@ -86,6 +97,26 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             await _IProdutoService.Atualizar(produto);
 
             return RedirectToAction("Lista","Produto", new { area = "Admin" });
+        }
+
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }

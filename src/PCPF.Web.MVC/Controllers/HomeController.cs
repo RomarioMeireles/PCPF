@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PCPF.Domain.Interfaces;
 using PCPF.Web.MVC.Models;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Controllers
 {
@@ -15,19 +13,22 @@ namespace PCPF.Web.MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUtilizadorRepository _IUtilizadorRepository;
-        public HomeController(ILogger<HomeController> logger, IUtilizadorRepository IUtilizadorRepository)
+        public readonly IProdutoRepository _IProdutoRepository;
+        public HomeController(ILogger<HomeController> logger, IUtilizadorRepository IUtilizadorRepository, IProdutoRepository IProdutoRepository)
         {
             _logger = logger;
             _IUtilizadorRepository = IUtilizadorRepository;
+            _IProdutoRepository = IProdutoRepository;
         }
 
         public IActionResult Cliente()
         {
             return View();
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var produtos = await _IProdutoRepository.ObterTodos();
+            return View(produtos);
         }
 
         public IActionResult IndexAdmin()

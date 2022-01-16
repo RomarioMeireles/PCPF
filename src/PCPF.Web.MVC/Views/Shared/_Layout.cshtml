@@ -40,7 +40,8 @@
                     <a href="/Cliente/Detalhes"><span class="icon-user"></span> Minha conta</a>
                     <a href="/Cliente/Cadastrar"><span class="icon-edit"></span> Registar-se </a>
                     <a href=""><span class="icon-envelope"></span> Contacta-nos</a>
-                    <a href=""><span class="icon-shopping-cart"></span> Artigo(s) - <span class="badge badge-warning"> AKZ 0.0</span></a>
+                    @*<a href=""><span class="icon-shopping-cart"></span> Artigo(s) - <span class="badge badge-warning"> AKZ 0.0</span></a>*@
+                    <a href="/Pedido/Checkout">@await Component.InvokeAsync("Carrinho")</a>
                 </div>
             </div>
         </div>
@@ -79,7 +80,7 @@
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class=""><a href="/Home/Index">Home</a></li>
-                            <li class=""><a href="/Admin/Produto/Index">Produtos</a></li>
+                            <li class=""><a href="/Catalogo/lista-de-produtos">Produtos</a></li>
                             <li class=""><a href="/Admin/Pedido/Cadastrar">Pedido</a></li>
                             <li class=""><a href="#">Quem somos</a></li>
                         </ul>

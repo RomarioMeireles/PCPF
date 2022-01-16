@@ -2,7 +2,7 @@
 
 namespace PCPF.Domain.Interfaces
 {
-   public interface IProdutoFornecedorRepository:IRepository<ProdutoFornecedor>
+    public interface IProdutoFornecedorRepository : IRepository<ProdutoFornecedor>
     {
     }
 }
