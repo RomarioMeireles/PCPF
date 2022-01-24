@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PCPF.Domain.Interfaces;
+using PCPF.Domain.Interfaces.IServices;
 using PCPF.Web.MVC.Models;
 using System.Diagnostics;
 using System.Linq;
@@ -14,11 +15,15 @@ namespace PCPF.Web.MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUtilizadorRepository _IUtilizadorRepository;
         public readonly IProdutoRepository _IProdutoRepository;
-        public HomeController(ILogger<HomeController> logger, IUtilizadorRepository IUtilizadorRepository, IProdutoRepository IProdutoRepository)
+        private readonly IPedidoRepository _IPedidoRepository;
+        private readonly IPedidoService _IPedidoService;
+        public HomeController(ILogger<HomeController> logger, IUtilizadorRepository IUtilizadorRepository, IProdutoRepository IProdutoRepository, IPedidoRepository IPedidoRepository, IPedidoService IPedidoService)
         {
             _logger = logger;
             _IUtilizadorRepository = IUtilizadorRepository;
             _IProdutoRepository = IProdutoRepository;
+            _IPedidoRepository = IPedidoRepository;
+            _IPedidoService = IPedidoService;
         }
 
         public IActionResult Cliente()
@@ -54,19 +59,30 @@ namespace PCPF.Web.MVC.Controllers
             {
                 string returnUrl = string.Empty;
                 var utilizadorSelecionado = utilizador.FirstOrDefault();
+
+                HttpContext.Session.SetInt32("userId", utilizadorSelecionado.Id);
+                HttpContext.Session.SetString("userName", utilizadorSelecionado.UserName);
+                HttpContext.Session.SetString("nome", utilizadorSelecionado.Nome);
+
                 switch (utilizadorSelecionado.Perfil)
                 {
                     case Domain.Model.ValueObjects.Perfil.Administrador:
                         returnUrl = "/Admin/Utilizador/Cadastrar";
                         break;
                     case Domain.Model.ValueObjects.Perfil.Cliente:
-                        returnUrl = "/Home/Index";
+                        if(TempData["returnUrl"]!=null)
+                        {
+                            returnUrl = TempData["returnUrl"].ToString();
+                            var pedido = await _IPedidoRepository.ObterPedidoRascunhoPorSessaoId(HttpContext.Session.GetString("anonimo"));
+                            pedido.ToList().ForEach(a => a.UserName = HttpContext.Session.GetString("userName"));
+                            await _IPedidoService.ActualizarPedidoRascunho(pedido);
+                        }
+                        else
+                        {
+                            returnUrl = "/Home/Index";
+                        }
                         break;
                 }
-
-                HttpContext.Session.SetInt32("userId", utilizadorSelecionado.Id);
-                HttpContext.Session.SetString("userName", utilizadorSelecionado.UserName);
-                HttpContext.Session.SetString("nome", utilizadorSelecionado.Nome);
 
                 return Redirect(returnUrl);
             }

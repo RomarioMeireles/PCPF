@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCPF.Infra.Data.Repository;
 
 namespace PCPF.Infra.Data.Migrations
 {
     [DbContext(typeof(PCPFContext))]
-    partial class PCPFContextModelSnapshot : ModelSnapshot
+    [Migration("20220123234040_initial5")]
+    partial class initial5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,10 +49,6 @@ namespace PCPF.Infra.Data.Migrations
 
                     b.Property<string>("Telefone")
                         .HasColumnType("varchar(20)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
 

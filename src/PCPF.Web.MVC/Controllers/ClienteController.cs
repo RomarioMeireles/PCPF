@@ -36,28 +36,20 @@ namespace PCPF.Web.MVC.Controllers
             return View();
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Cadastrar(Cliente cliente)
+        [HttpPost]
+        public IActionResult Cadastrar(Cliente cliente, string Password)
         {
-            var userConta = new Utilizador()
+            if (!ModelState.IsValid)
             {
-                UserName = cliente.Email,
-                Password = "PCPF@12345"
-            };
-            var validacao = ExecutarValidacao(new ClienteValidation(), cliente);
-            if (!validacao)
-            {
-                var erro = ObterMensagensErro();
-                foreach (var item in erro)
-                {
-                    ModelState.AddModelError(string.Empty, item);
-                }
                 return View(cliente);
             }
 
-            await _IClienteService.Adicionar(cliente);
-            await _IUtilizadorService.Adicionar(userConta);
-            ViewBag.Mensagem = "Cadastro feito com sucesso! Sua senha é: PCPF@12345. Faça login para iniciar";
+            _IClienteService.AdicionarCliente(cliente, Password);
+            if (!OperacaoValida())
+            {
+                return View(cliente);
+            }
+            TempData["Sucesso"] = "Cadastro efectuado com sucesso!";
             //return RedirectToAction("Lista");
             return View();
         }

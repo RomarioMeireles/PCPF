@@ -14,6 +14,14 @@ namespace PCPF.Domain.Model
             Password = password;            
         }
 
+        public Utilizador(string nome, string userName, string password, Perfil perfil)
+        {
+            Nome = nome;
+            UserName = userName;
+            Password = password;
+            Perfil = perfil;
+        }
+
         public string Nome { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }

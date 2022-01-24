@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
+using PCPF.Domain.Interfaces.IServices;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +11,12 @@ namespace PCPF.Web.MVC.Controllers
     {
         private readonly IPedidoRepository _IPedidoRepository;
         private readonly IProdutoRepository _IProdutoRepository;
-        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository)
+        private readonly IPedidoService _IPedidoService;
+        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository, IPedidoService IPedidoService)
         {
             _IPedidoRepository = iPedidoRepository;
             _IProdutoRepository = iProdutoRepository;
+            _IPedidoService = IPedidoService;
         }
 
         public async Task<IActionResult> Checkout()
@@ -36,12 +37,29 @@ namespace PCPF.Web.MVC.Controllers
                 }
                 id = HttpContext.Session.GetString("anonimo");
 
+                TempData["returnUrl"] = "/Pedido/Checkout";
+                TempData.Keep("returnUrl");
+
                 var pedidoRescunho = await _IPedidoRepository.ObterPedidoRascunhoPorSessaoId(id);
 
                 pedidoRescunho.ToList().ForEach(a => a.Imagem = _IProdutoRepository.ObterImagem(a.ProdutoId).Result);
 
                 return View(pedidoRescunho);
             }
+        }
+        [HttpPost]
+        public async Task<IActionResult> EfectuarPedido()
+        {
+            var id = HttpContext.Session.GetString("userName");
+            var pedidoRascunho = await _IPedidoRepository.ObterPedidoRascunhoPorUserName(id);
+
+            _IPedidoService.CriarPedido(pedidoRascunho);
+
+            return RedirectToAction("MeusPedidos");
+        }
+        public async Task<IActionResult> MeusPedidos()
+        {
+            return View();
         }
     }
 }

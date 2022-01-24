@@ -1,4 +1,5 @@
 ﻿using PCPF.Domain.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PCPF.Domain.Interfaces.IServices
@@ -9,5 +10,7 @@ namespace PCPF.Domain.Interfaces.IServices
         Task Atualizar(Pedido entity);
         Task Remover(int id);
         Task AdicionarPedidoRascunho(PedidoRascunho pedidoRascunho);
+        Task ActualizarPedidoRascunho(IEnumerable<PedidoRascunho> pedido);
+        void CriarPedido(IEnumerable<PedidoRascunho> pedidoRascunhos);
     }
 }

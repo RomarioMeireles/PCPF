@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<PCPF.Domain.Model.PedidoRascunho>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
 <div class="well well-small">
     <h1> <small class="pull-right"> @Model.Count() Artigo(s) no pedido</small></h1>
     <hr class="soften">
@@ -28,8 +30,8 @@
                         <td>
                             <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="@item.Quantidade" readonly>
                             @*<div class="input-append">
-                                <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
-                            </div>*@
+                                    <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+                                </div>*@
                         </td>
                         <td>AKZ @total.ToString("N")</td>
                     </tr>
@@ -39,20 +41,20 @@
             @if (Model != null)
             {
                 @*<tr>
-                    <td colspan="6" class="alignR">Total products:	</td>
-                    <td> $448.42</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="alignR">Total products:	</td>
-                    <td> $448.42</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="alignR">Total products:	</td>
-                    <td> $448.42</td>
-                </tr>*@
+                        <td colspan="6" class="alignR">Total products:	</td>
+                        <td> $448.42</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="alignR">Total products:	</td>
+                        <td> $448.42</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="alignR">Total products:	</td>
+                        <td> $448.42</td>
+                    </tr>*@
                 <tr>
                     <td colspan="4" class="alignR" style="text-align:right">Valor total:	</td>
-                    <td class="label label-primary"> AKZ @Model.Sum(a=>a.Valor * a.Quantidade).ToString("N")</td>
+                    <td class="label label-primary"> AKZ @Model.Sum(a => a.Valor * a.Quantidade).ToString("N")</td>
                 </tr>
             }
 
@@ -60,34 +62,53 @@
     </table><br>
 
     @*<table class="table table-bordered">
-        <tbody>
-            <tr><td>ESTIMATE YOUR SHIPPING &amp; TAXES</td></tr>
-            <tr>
-                <td>
-                    <form class="form-horizontal">
-                        <div class="control-group">
-                            <label class="span2 control-label" for="inputEmail">Country</label>
-                            <div class="controls">
-                                <input type="text" placeholder="Country">
+            <tbody>
+                <tr><td>ESTIMATE YOUR SHIPPING &amp; TAXES</td></tr>
+                <tr>
+                    <td>
+                        <form class="form-horizontal">
+                            <div class="control-group">
+                                <label class="span2 control-label" for="inputEmail">Country</label>
+                                <div class="controls">
+                                    <input type="text" placeholder="Country">
+                                </div>
                             </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="span2 control-label" for="inputPassword">Post Code/ Zipcode</label>
-                            <div class="controls">
-                                <input type="password" placeholder="Password">
+                            <div class="control-group">
+                                <label class="span2 control-label" for="inputPassword">Post Code/ Zipcode</label>
+                                <div class="controls">
+                                    <input type="password" placeholder="Password">
+                                </div>
                             </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="controls">
-                                <button type="submit" class="shopBtn">Click to check the price</button>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="shopBtn">Click to check the price</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>*@
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>*@
+<form action="/Pedido/EfectuarPedido" method="post">
     <a href="/Catalogo/lista-de-produtos" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Continuar o pedido </a>
-    <a href="login.html" class="shopBtn btn-large pull-right">Next <span class="icon-arrow-right"></span></a>
+    @if (HttpContextAccessor.HttpContext.Session.GetString("userName") != null)
+    {
+        @*<a href="" class="shopBtn btn-large pull-right">Concluir pedido <span class="icon-arrow-right"></span></a>*@
 
-</div>
+        <button type="submit" class="shopBtn btn-large pull-right">Concluir pedido <span class="icon-arrow-right"></span></button>
+
+    }
+    else
+    {
+        if (Model != null && Model.Count() > 0)
+        {
+            <div class="text text-info">
+                <br /><br />
+                <p>
+                    Faça o login para concluir o pedido.
+                </p>
+            </div>
+        }
+    }
+</form>
+    </div>

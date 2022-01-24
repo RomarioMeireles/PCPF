@@ -9,5 +9,6 @@ namespace PCPF.Domain.Interfaces.IServices
         Task Adicionar(Cliente entity);
         Task Atualizar(Cliente entity);
         Task Remover(int id);
+        void AdicionarCliente(Cliente cliente, string password);
     }
 }

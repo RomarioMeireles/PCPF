@@ -19,6 +19,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.DocumentoIdentificacao).HasColumnType("varchar(30)");
             builder.Property(a => a.Email).HasColumnType("varchar(150)").IsRequired();
             builder.Property(a => a.Nome).HasColumnType("varchar(80)").IsRequired();
+            builder.Property(a => a.UserName).HasColumnType("varchar(150)").IsRequired();
             builder.Property(a => a.Status).HasColumnType("bit").IsRequired();
             builder.Property(a => a.Telefone).HasColumnType("varchar(20)");
             

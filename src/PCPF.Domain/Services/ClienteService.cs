@@ -3,6 +3,7 @@ using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
+using PCPF.Infra.CrossCuting.Seguranca;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,25 @@ namespace PCPF.Domain.Services
                 return;
             }
             await _IClienteRepository.Adicionar(entity);
+        }
+
+        public void AdicionarCliente(Cliente cliente, string password)
+        {
+            var utilizador = new Utilizador(cliente.Nome, cliente.UserName, password, Model.ValueObjects.Perfil.Cliente);
+            var resultadoValidacaoPassword = PasswordRequiriment.ValidatePassword(utilizador.Password);
+            if (resultadoValidacaoPassword.Item2.Count() > 0 && resultadoValidacaoPassword.Item1==false)
+            {
+                foreach (var item in resultadoValidacaoPassword.Item2)
+                {
+                    Notificar(item.ToString());
+                }
+
+                return;
+            }
+
+            utilizador.ToHashPassword();
+
+            _IClienteRepository.AdicionarCliente(cliente, utilizador);
         }
 
         public async Task Atualizar(Cliente entity)

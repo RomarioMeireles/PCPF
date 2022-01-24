@@ -14,7 +14,8 @@ namespace PCPF.Domain.Model
         public DateTime FinalizadoEm { get; set; }
         public StatusPedido StatusPedido { get; set; }
         public string Observacao { get; set; }
-        public ICollection<PedidoItem> ItensPedido { get; set; }
+        public long Referencia { get; set; }
+        public List<PedidoItem> ItensPedido { get; set; }
         public ICollection<Pagamento> Pagamentos { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
 <!DOCTYPE html>
 <html lang="pt-pt">
 <head>
@@ -92,7 +93,7 @@
                             <b style="color:red;">@TempData["ErroLogin"]</b>
                         }
                         @*@using PCPF.Domain.Model
-        @model PCPF.Domain.Model.Utilizador*@
+                            @model PCPF.Domain.Model.Utilizador*@
 
                         <ul class="nav pull-right">
                             <li class="dropdown">
@@ -107,9 +108,9 @@
                                         </div>
                                         <div class="control-group">
                                             @*<label class="checkbox">
-                                <input type="checkbox"> Remember me
-                            </label>*@
-                                            <button type="submit" class="shopBtn btn-block">Sign in</button>
+                                                    <input type="checkbox"> Remember me
+                                                </label>*@
+                                            <button type="submit" class="shopBtn btn-block">Login</button>
                                         </div>
                                     </form>
                                 </div>

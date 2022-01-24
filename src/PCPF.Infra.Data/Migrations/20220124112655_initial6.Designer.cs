@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCPF.Infra.Data.Repository;
 
 namespace PCPF.Infra.Data.Migrations
 {
     [DbContext(typeof(PCPFContext))]
-    partial class PCPFContextModelSnapshot : ModelSnapshot
+    [Migration("20220124112655_initial6")]
+    partial class initial6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
