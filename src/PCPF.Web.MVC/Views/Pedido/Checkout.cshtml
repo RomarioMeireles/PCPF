@@ -8,11 +8,12 @@
     <table class="table table-bordered table-condensed">
         <thead>
             <tr>
-                <th>Producto</th>
+                <th>Produto</th>
                 <th>Descrição</th>
                 <th>Preço unitário</th>
                 <th>Qtd </th>
                 <th>Total</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,9 @@
                                 </div>*@
                         </td>
                         <td>AKZ @total.ToString("N")</td>
+                        <td>
+                            <a href="/Pedido/RemoverItemRascunho/@item.Id" class="shopBtn btn-large pull-right" style="background-color:red">Remover <span class="icon-remove"></span></a>
+                        </td>
                     </tr>
                 }
             }
@@ -53,7 +57,7 @@
                         <td> $448.42</td>
                     </tr>*@
                 <tr>
-                    <td colspan="4" class="alignR" style="text-align:right">Valor total:	</td>
+                    <td colspan="5" class="alignR" style="text-align:right">Valor total:	</td>
                     <td class="label label-primary"> AKZ @Model.Sum(a => a.Valor * a.Quantidade).ToString("N")</td>
                 </tr>
             }

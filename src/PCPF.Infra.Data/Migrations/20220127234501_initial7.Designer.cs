@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCPF.Infra.Data.Repository;
 
 namespace PCPF.Infra.Data.Migrations
 {
     [DbContext(typeof(PCPFContext))]
-    partial class PCPFContextModelSnapshot : ModelSnapshot
+    [Migration("20220127234501_initial7")]
+    partial class initial7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,9 +218,6 @@ namespace PCPF.Infra.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("varchar(150)");
-
-                    b.Property<string>("Imagem")
                         .HasColumnType("varchar(150)");
 
                     b.Property<int>("ProdutoId")

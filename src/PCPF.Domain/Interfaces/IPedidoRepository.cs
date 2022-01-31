@@ -11,5 +11,7 @@ namespace PCPF.Domain.Interfaces
         Task<IEnumerable<PedidoRascunho>> ObterPedidoRascunhoPorUserName(string userName);
         Task ActualizarPedidoRascunho(IEnumerable<PedidoRascunho> pedido);
         void CriarPedido(IEnumerable<PedidoRascunho> pedidoRascunho, Pedido pedido);
+        Task<IEnumerable<Pedido>> ObterPedidoPorUserName(string userName);
+        Task RemoverItemRascunho(int id);
     }
 }

@@ -77,5 +77,10 @@ namespace PCPF.Domain.Services
         {
             await _IPedidoRepository.Remover(id);
         }
+
+        public async Task RemoverItemRascunho(int id)
+        {
+            await _IPedidoRepository.RemoverItemRascunho(id);
+        }
     }
 }

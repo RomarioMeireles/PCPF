@@ -39,7 +39,11 @@
                     </div>
                     <a href="/Home/Index"> <span class="icon-home"></span> Home</a>
                     <a href="/Cliente/Detalhes"><span class="icon-user"></span> Minha conta</a>
-                    <a href="/Cliente/Cadastrar"><span class="icon-edit"></span> Registar-se </a>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("userName") == null)
+                    {
+                        <a href="/Cliente/Cadastrar"><span class="icon-edit"></span> Registar-se </a>
+                    }
+                    
                     <a href=""><span class="icon-envelope"></span> Contacta-nos</a>
                     @*<a href=""><span class="icon-shopping-cart"></span> Artigo(s) - <span class="badge badge-warning"> AKZ 0.0</span></a>*@
                     <a href="/Pedido/Checkout">@await Component.InvokeAsync("Carrinho")</a>
@@ -92,28 +96,38 @@
                         {
                             <b style="color:red;">@TempData["ErroLogin"]</b>
                         }
-                        @*@using PCPF.Domain.Model
+
+
+@*@using PCPF.Domain.Model
                             @model PCPF.Domain.Model.Utilizador*@
 
                         <ul class="nav pull-right">
                             <li class="dropdown">
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
-                                <div class="dropdown-menu">
-                                    <form class="form-horizontal loginFrm" method="post" action="/Home/Login">
-                                        <div class="control-group">
-                                            <input type="text" class="span2" id="inputEmail" placeholder="UserName" name="userName">
-                                        </div>
-                                        <div class="control-group">
-                                            <input type="password" class="span2" id="inputPassword" placeholder="Password" name="password">
-                                        </div>
-                                        <div class="control-group">
-                                            @*<label class="checkbox">
-                                                    <input type="checkbox"> Remember me
-                                                </label>*@
-                                            <button type="submit" class="shopBtn btn-block">Login</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                @if (HttpContextAccessor.HttpContext.Session.GetString("userName") == null)
+                                {
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
+                                    <div class="dropdown-menu">
+                                        <form class="form-horizontal loginFrm" method="post" action="/Home/Login">
+                                            <div class="control-group">
+                                                <input type="text" class="span2" id="inputEmail" placeholder="UserName" name="userName">
+                                            </div>
+                                            <div class="control-group">
+                                                <input type="password" class="span2" id="inputPassword" placeholder="Password" name="password">
+                                            </div>
+                                            <div class="control-group">
+                                                @*<label class="checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>*@
+                                                <button type="submit" class="shopBtn btn-block">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a style="background-color:orange; color:white" href="/Home/Logout"><span class="icon-lock"></span> Logout </a>
+                                }
+
                             </li>
                         </ul>
                     </div>

@@ -133,12 +133,12 @@
                         <li class="span4">
                             <div class="thumbnail">
 
-                                <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> Visualizar</a>
-                                <a href="product_details.html"><img src="~/assets/img/69feaa35b8c6f4d6aef908ed640a906c.jpg" alt=""></a>
+                                <a class="zoomTool" href="/Catalogo/detalhes-produto/@item.Id" title="add to cart"><span class="icon-search"></span> Visualizar</a>
+                                <a href="/Catalogo/detalhes-produto/@item.Id"><img src="/imagens/@item.Imagem" alt=""></a>
                                 <div class="caption cntr">
                                     <p style="width:200px;font-size:13px;">@item.Descricao</p>
                                     <p><strong> AKZ @item.Valor.ToString("N")</strong></p>
-                                    <h4><a class="shopBtn" href="#" title="add to cart"> + Pedido </a></h4>
+                                    <h4><a class="shopBtn" href="/Catalogo/detalhes-produto/@item.Id" title="add to cart"> + Pedido </a></h4>
                                     @*<div class="actionList">
                                         <a class="pull-left" href="#">Ver detalhes </a>
                                         <a class="pull-left" href="#">Visitar página </a>

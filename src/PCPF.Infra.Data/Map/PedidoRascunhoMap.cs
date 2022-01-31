@@ -20,6 +20,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.Valor).HasColumnType("decimal(18,2)").IsRequired();
             builder.Property(a => a.UserName).HasColumnType("varchar(150)");
             builder.Property(a => a.SessionId).HasColumnType("varchar(100)");
+            builder.Property(a => a.Imagem).HasColumnType("varchar(150)");
         }
     }
 }

@@ -40,7 +40,8 @@ namespace PCPF.Web.MVC.Controllers
                 Descricao = produto.Descricao,
                 ProdutoId = produtoId,
                 Quantidade = quantidade,
-                Valor = produto.Valor
+                Valor = produto.Valor,
+                Imagem=produto.Imagem
             };
 
             if (HttpContext.Session.GetString("userName") != null)

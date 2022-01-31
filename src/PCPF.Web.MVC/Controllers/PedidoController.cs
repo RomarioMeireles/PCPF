@@ -59,7 +59,15 @@ namespace PCPF.Web.MVC.Controllers
         }
         public async Task<IActionResult> MeusPedidos()
         {
-            return View();
+            var pedidos = await _IPedidoRepository.ObterPedidoPorUserName(HttpContext.Session.GetString("userName"));
+            pedidos.ToList().ForEach(a => a.Total = (a.ItensPedido.Sum(b => b.Quantidade * b.Valor)));
+            return View(pedidos);
         }
+        public async Task<IActionResult> RemoverItemRascunho(int id)
+        {
+            await _IPedidoService.RemoverItemRascunho(id);
+            return RedirectToAction("Checkout");
+        }
+
     }
 }

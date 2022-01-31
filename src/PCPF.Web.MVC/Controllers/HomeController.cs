@@ -89,5 +89,14 @@ namespace PCPF.Web.MVC.Controllers
             TempData["ErroLogin"] = "Credencias inválidas!";
             return RedirectToAction("Index");
         }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userId");
+            HttpContext.Session.Remove("userName");
+            HttpContext.Session.Remove("nome");
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index");
+        }
     }
 }

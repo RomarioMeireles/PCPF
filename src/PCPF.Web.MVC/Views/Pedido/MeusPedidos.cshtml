@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PCPF.Domain.Model.Pedido>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+<div class="well well-small">
+    <h1> <small class="pull-right"> @Model.Count() pedido(s)</small></h1>
+    <hr class="soften">
+
+    <table class="table table-bordered table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Referência</th>
+                <th>Data Início</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Observação </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Referencia</td>
+                        <td>@item.IniciadoEm</td>
+                        <td>
+                            @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
+                            {
+                                <b style="color:orange">@item.StatusPedido</b>
+                            }
+                            @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Finalizado)
+                            {
+                                <b style="color:green">@item.StatusPedido</b>
+                            }
+                        </td>
+                        <td>@item.Total.ToString("N")</td>
+                        <td>@item.Observacao</td>
+                        <td>
+                            @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
+                            {
+                                <a href="#" class="btn btn-success">Pagar <span class="icon-money"></span></a>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table><br>
+
+
+</div>

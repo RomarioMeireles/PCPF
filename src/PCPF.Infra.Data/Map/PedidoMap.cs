@@ -15,7 +15,7 @@ namespace PCPF.Infra.Data.Map
 
             builder.Property(a => a.ClienteId).HasColumnType("int");
             builder.Property(a => a.DataRegisto).HasColumnType("datetime").HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
-            builder.Property(a => a.FinalizadoEm).HasColumnType("datetime");
+            builder.Property(a => a.FinalizadoEm).HasColumnType("datetime").IsRequired(false);
             builder.Property(a => a.IniciadoEm).HasColumnType("datetime").IsRequired();
             builder.Property(a => a.Observacao).HasColumnType("varchar(200)");
             builder.Property(a => a.Referencia).HasColumnType("bigint");

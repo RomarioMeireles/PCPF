@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PCPF.Domain.Interfaces;
 using PCPF.Domain.Model;
 using System.Collections.Generic;
@@ -32,6 +31,8 @@ namespace PCPF.Infra.Data.Repository
         {
             using(var transaction = new TransactionScope())
             {
+                var clienteId = Db.Cliente.FirstOrDefault(a=>a.UserName==pedidoRascunho.FirstOrDefault().UserName).Id;
+                pedido.ClienteId=clienteId;
                 DbSet.Add(pedido);
                 Db.SaveChanges();
                 Db.PedidoRascunho.RemoveRange(pedidoRascunho);
@@ -39,6 +40,12 @@ namespace PCPF.Infra.Data.Repository
 
                 transaction.Complete();
             }
+        }
+
+        public async Task<IEnumerable<Pedido>> ObterPedidoPorUserName(string userName)
+        {
+            var clienteId = await Db.Cliente.Where(a => a.UserName == userName).Select(b => b.Id).FirstOrDefaultAsync();
+            return await DbSet.Include(b=>b.ItensPedido).Where(a => a.ClienteId == clienteId).ToListAsync();
         }
 
         public async Task<IEnumerable<PedidoRascunho>> ObterPedidoRascunhoPorSessaoId(string sessaoId)
@@ -50,6 +57,12 @@ namespace PCPF.Infra.Data.Repository
         public async Task<IEnumerable<PedidoRascunho>> ObterPedidoRascunhoPorUserName(string userName)
         {
             return await Db.PedidoRascunho.Where(a => a.UserName == userName).ToListAsync();
+        }
+
+        public async Task RemoverItemRascunho(int id)
+        {
+            Db.PedidoRascunho.Remove(await Db.PedidoRascunho.FirstOrDefaultAsync(a => a.Id == id));
+            await SaveChanges();
         }
     }
 }

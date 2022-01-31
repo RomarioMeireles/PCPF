@@ -11,8 +11,6 @@ namespace PCPF.Domain.Model
         public int Quantidade { get; set; }
         public string UserName { get; set; }
         public string SessionId { get; set; }
-
-        [NotMapped]
         public string Imagem { get; set; }
     }
 }
