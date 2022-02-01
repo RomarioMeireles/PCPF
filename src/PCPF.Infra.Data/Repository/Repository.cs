@@ -24,7 +24,7 @@ namespace PCPF.Infra.Data.Repository
             await SaveChanges();
         }
 
-        public async Task Adicionar(TEntity entity)
+        public virtual async Task Adicionar(TEntity entity)
         {
             DbSet.Add(entity);
             await SaveChanges();

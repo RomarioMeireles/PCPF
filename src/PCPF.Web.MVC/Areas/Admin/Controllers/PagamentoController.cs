@@ -54,7 +54,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
                 }
                 return View(pagamento);
             }
-            await _IPagamentoService.Adicionar(pagamento);
+            //await _IPagamentoService.Adicionar(pagamento);
 
             ViewBag.PedidoId = new SelectList(await _IPedidoRepository.ObterTodos(), "Id");
 

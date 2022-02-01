@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\imagens\" />
+    <Folder Include="wwwroot\comprovativos\" />
   </ItemGroup>
 
 </Project>

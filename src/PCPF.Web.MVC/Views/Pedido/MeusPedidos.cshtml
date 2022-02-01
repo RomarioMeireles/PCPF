@@ -4,7 +4,7 @@
 <div class="well well-small">
     <h1> <small class="pull-right"> @Model.Count() pedido(s)</small></h1>
     <hr class="soften">
-
+    @await Component.InvokeAsync("Summary")
     <table class="table table-bordered table-condensed table-striped">
         <thead>
             <tr>
@@ -39,7 +39,7 @@
                         <td>
                             @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
                             {
-                                <a href="#" class="btn btn-success">Pagar <span class="icon-money"></span></a>
+                                <a href="/Pedido/EfectuarPagamento/@item.Id" class="btn btn-success">Pagar <span class="icon-money"></span></a>
                             }
 
                         </td>

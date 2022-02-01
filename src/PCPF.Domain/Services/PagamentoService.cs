@@ -10,16 +10,20 @@ namespace PCPF.Domain.Services
    public class PagamentoService : BaseService, IPagamentoService
     {
         private readonly IPagamentoRepository _IPagamentoRepository;
-
-        public PagamentoService(IPagamentoRepository IPagamentoRepository, INotificador iNotificador) : base(iNotificador)
+        private readonly IPedidoRepository _IPedidoRepository;
+        public PagamentoService(IPagamentoRepository IPagamentoRepository, IPedidoRepository IPedidoRepository, INotificador iNotificador) : base(iNotificador)
         {
             _IPagamentoRepository = IPagamentoRepository;
+            _IPedidoRepository = IPedidoRepository;
         }
-        public async Task Adicionar(Pagamento entity)
+        public async Task Adicionar(Pagamento entity, int idPedido)
         {
             if (!ExecutarValidacao(new PagamentoValidation(), entity)) return;
-            
-            await _IPagamentoRepository.Adicionar(entity);
+
+            var pedido = await _IPedidoRepository.ObterPorId(idPedido);
+            pedido.StatusPedido = Model.ValueObjects.StatusPedido.Processamento;
+            entity.PedidoId = idPedido;
+            await _IPagamentoRepository.Adicionar(entity, pedido);
         }
 
         public async Task Atualizar(Pagamento entity)

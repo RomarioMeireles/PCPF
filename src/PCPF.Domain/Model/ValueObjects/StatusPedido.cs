@@ -3,7 +3,7 @@
     public enum StatusPedido
     {
         Analise,
-        Finalizado,
-        Entregue,
+        Processamento,
+        Finalizado
     }
 }

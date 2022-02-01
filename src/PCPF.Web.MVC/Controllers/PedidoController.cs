@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
+using PCPF.Domain.Model;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,11 +15,13 @@ namespace PCPF.Web.MVC.Controllers
         private readonly IPedidoRepository _IPedidoRepository;
         private readonly IProdutoRepository _IProdutoRepository;
         private readonly IPedidoService _IPedidoService;
-        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository, IPedidoService IPedidoService)
+        private readonly IPagamentoService _IPagamentoService;
+        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository, IPedidoService IPedidoService, IPagamentoService IPagamentoService)
         {
             _IPedidoRepository = iPedidoRepository;
             _IProdutoRepository = iProdutoRepository;
             _IPedidoService = IPedidoService;
+            _IPagamentoService = IPagamentoService;
         }
 
         public async Task<IActionResult> Checkout()
@@ -68,6 +73,45 @@ namespace PCPF.Web.MVC.Controllers
             await _IPedidoService.RemoverItemRascunho(id);
             return RedirectToAction("Checkout");
         }
+        public async Task<IActionResult> EfectuarPagamento(int id)
+        {
+            var pedido = await _IPedidoRepository.ObterPedidoItemPorIdPedido(id);
+            return View(pedido);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EfectuarPagamento(Pagamento pagamento, IFormFile comprovativo, int id)
+        {
+            var docPrefixo = Guid.NewGuid() + "_";
+            if (!await UploadArquivo(comprovativo, docPrefixo))
+            {
+                return View(pagamento);
+            }
 
+            var combinedPath = string.Concat(docPrefixo, comprovativo.FileName);
+            pagamento.Comprovativo = combinedPath;
+            await _IPagamentoService.Adicionar(pagamento, id);
+            //Enviar SMS
+            TempData["Sucesso"] = "O comprovativo de pagamento foi enviado com sucesso!";
+            return View();
+        }
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string docPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/comprovativos", docPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
+        }
     }
 }

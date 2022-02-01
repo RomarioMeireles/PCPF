@@ -17,6 +17,7 @@ namespace PCPF.Infra.Data.Map
             builder.Property(a => a.Observacao).HasColumnType("varchar(200)");
             builder.Property(a => a.Status).HasColumnName("bit");
             builder.Property(a => a.ValotTotal).HasColumnType("decimal(18,2)");
+            builder.Property(a => a.Comprovativo).HasColumnType("varchar(150)");
 
             builder.HasOne(a => a.Pedido)
                 .WithMany(b => b.Pagamentos)

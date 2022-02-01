@@ -64,5 +64,9 @@ namespace PCPF.Infra.Data.Repository
             Db.PedidoRascunho.Remove(await Db.PedidoRascunho.FirstOrDefaultAsync(a => a.Id == id));
             await SaveChanges();
         }
+        public async Task<IEnumerable<PedidoItem>> ObterPedidoItemPorIdPedido(int idPedido)
+        {
+            return await Db.PedidoItem.Include(a => a.Pedido).Include(b => b.Produto).AsNoTrackingWithIdentityResolution().Where(a=>a.PedidoId== idPedido).ToListAsync();
+        }
     }
 }

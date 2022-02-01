@@ -13,6 +13,7 @@
         public int PedidoId { get; set; }
         public decimal ValotTotal { get; set; }
         public string Observacao { get; set; }
+        public string Comprovativo { get; set; }
         public Pedido Pedido { get; set; }
     }
 }

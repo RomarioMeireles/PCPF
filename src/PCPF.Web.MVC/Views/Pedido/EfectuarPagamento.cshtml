@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PCPF.Domain.Model.PedidoItem>
+<input type="hidden" value="@Model.FirstOrDefault().PedidoId" />
+<div class="well well-small">
+    <h1> <small class="pull-right"> @Model.Count() Artigo(s) no pedido</small></h1>
+    <hr class="soften">
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Descrição</th>
+                <th>Preço unitário</th>
+                <th>Qtd </th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    decimal total = 0;
+                    total = item.Quantidade * item.Valor;
+                    <tr>
+                        <td><img width="100" src="/imagens/@item.Produto.Imagem" alt=""></td>
+                        <td>@item.Produto.Descricao</td>
+                        @*<td> - </td>*@
+                        <td>@item.Valor.ToString("N")</td>
+                        <td>
+                            <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="@item.Quantidade" readonly>
+                            @*<div class="input-append">
+                                    <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+                                </div>*@
+                        </td>
+                        <td>AKZ @total.ToString("N")</td>
+                        <td>
+                            <a href="/Pedido/RemoverItemRascunho/@item.Id" class="shopBtn btn-large pull-right" style="background-color:red">Remover <span class="icon-remove"></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+            @if (Model != null)
+            {
+                <tr>
+                    <td colspan="5" class="alignR" style="text-align:right">Valor total:</td>
+                    <td class="label label-primary"> AKZ @Model.Sum(a => a.Valor * a.Quantidade).ToString("N")</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <br />
+
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <h3>Comprovativo de pagamento</h3>
+        <div class="control-group">
+            <label class="control-label" for="comprovativo">Comprovativo de pagamento <sup>*</sup></label>
+            <div class="controls">
+                <input type="file" id="comprovativo" name="comprovativo" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Observacao">Observação <sup>*</sup></label>
+            <div class="controls">
+                <textarea style="width:400px;height:200px;" name="Observacao" id="Observacao"></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" name="submitAccount" value="Confirmar" class="exclusive shopBtn">
+            </div>
+        </div>
+    </form>
+
+</div>
