@@ -12,15 +12,17 @@ namespace PCPF.Infra.Data.Repository
 
         }
 
-        public async Task Adicionar(Pagamento pagamento, Pedido pedido)
+        public Task Adicionar(Pagamento pagamento, Pedido pedido)
         {
             using(var transaction = new TransactionScope())
             {
                 DbSet.Add(pagamento);
-                await SaveChanges();
+                Db.SaveChanges();
                 Db.Pedido.Update(pedido);
-                await SaveChanges();
+                Db.SaveChanges();
+                transaction.Complete();
             }
+            return Task.CompletedTask;
         }
     }
 }

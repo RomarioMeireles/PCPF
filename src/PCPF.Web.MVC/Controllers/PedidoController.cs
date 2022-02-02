@@ -81,6 +81,7 @@ namespace PCPF.Web.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> EfectuarPagamento(Pagamento pagamento, IFormFile comprovativo, int id)
         {
+            pagamento.Id = 0;
             var docPrefixo = Guid.NewGuid() + "_";
             if (!await UploadArquivo(comprovativo, docPrefixo))
             {
@@ -92,7 +93,7 @@ namespace PCPF.Web.MVC.Controllers
             await _IPagamentoService.Adicionar(pagamento, id);
             //Enviar SMS
             TempData["Sucesso"] = "O comprovativo de pagamento foi enviado com sucesso!";
-            return View();
+            return RedirectToAction("MeusPedidos");
         }
         private async Task<bool> UploadArquivo(IFormFile arquivo, string docPrefixo)
         {

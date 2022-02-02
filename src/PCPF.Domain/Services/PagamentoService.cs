@@ -3,6 +3,7 @@ using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PCPF.Domain.Services
@@ -16,14 +17,18 @@ namespace PCPF.Domain.Services
             _IPagamentoRepository = IPagamentoRepository;
             _IPedidoRepository = IPedidoRepository;
         }
-        public async Task Adicionar(Pagamento entity, int idPedido)
+        public Task Adicionar(Pagamento entity, int idPedido)
         {
-            if (!ExecutarValidacao(new PagamentoValidation(), entity)) return;
+            var total = _IPedidoRepository.ObterPedidoItemPorIdPedido(idPedido);
+            entity.ValotTotal = total.Result.Sum(a => a.Valor * a.Quantidade);
 
-            var pedido = await _IPedidoRepository.ObterPorId(idPedido);
+            if (!ExecutarValidacao(new PagamentoValidation(), entity)) return Task.FromResult(false);
+
+            var pedido = _IPedidoRepository.ObterPorId(idPedido).Result;
             pedido.StatusPedido = Model.ValueObjects.StatusPedido.Processamento;
             entity.PedidoId = idPedido;
-            await _IPagamentoRepository.Adicionar(entity, pedido);
+           
+            return _IPagamentoRepository.Adicionar(entity, pedido);
         }
 
         public async Task Atualizar(Pagamento entity)
