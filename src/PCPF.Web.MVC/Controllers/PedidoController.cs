@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
+using PCPF.Domain.Notificacoes;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Controllers
 {
-    public class PedidoController : Controller
+    public class PedidoController :  BaseController
     {
         private readonly IPedidoRepository _IPedidoRepository;
         private readonly IProdutoRepository _IProdutoRepository;
         private readonly IPedidoService _IPedidoService;
         private readonly IPagamentoService _IPagamentoService;
-        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository, IPedidoService IPedidoService, IPagamentoService IPagamentoService)
+        public PedidoController(IPedidoRepository iPedidoRepository, IProdutoRepository iProdutoRepository, IPedidoService IPedidoService, IPagamentoService IPagamentoService, INotificador notificador):base(notificador)
         {
             _IPedidoRepository = iPedidoRepository;
             _IProdutoRepository = iProdutoRepository;
@@ -113,6 +114,17 @@ namespace PCPF.Web.MVC.Controllers
             }
 
             return true;
+        }
+        public async Task<IActionResult> PedidoDetalhes(int id)
+        {
+            var pedido = await _IPedidoRepository.ObterPedidoItemPorIdPedido(id);
+            return View(pedido);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CancelarPedido(int PedidoId, string observacao)
+        {
+            await _IPedidoService.Cancelar(PedidoId, observacao, false);
+            return RedirectToAction("PedidoDetalhes", new { id= PedidoId });
         }
     }
 }

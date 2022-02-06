@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PCPF.Infra.AntiCorrupion.SMSGateway\PCPF.Infra.AntiCorrupion.SMSGateway.csproj" />
     <ProjectReference Include="..\PCPF.Infra.Data\PCPF.Infra.Data.csproj" />
   </ItemGroup>
 

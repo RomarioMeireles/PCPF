@@ -86,11 +86,14 @@
                         <ul class="nav">
                             <li class=""><a href="/Home/Index">Home</a></li>
                             <li class=""><a href="/Catalogo/lista-de-produtos">Produtos</a></li>
-                            <li class=""><a href="/Admin/Pedido/Cadastrar">Pedido</a></li>
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("userName") != null)
+                            {
+                                <li class=""><a href="/Pedido/MeusPedidos">Meus pedidos</a></li>
+                            }
                             <li class=""><a href="#">Quem somos</a></li>
                         </ul>
-                        <form action="#" class="navbar-search pull-left">
-                            <input type="text" placeholder="Procurar" class="search-query span2">
+                        <form action="/Catalogo/pesquisar-produtos" class="navbar-search pull-left" method="post">
+                            <input type="text" placeholder="Procurar" class="search-query span2" name="query" id="query">
                         </form>
                         @if (TempData["ErroLogin"] != null)
                         {
@@ -227,5 +230,6 @@
     <script src="~/assets/js/jquery.easing-1.3.min.js"></script>
     <script src="~/assets/js/jquery.scrollTo-1.4.3.1-min.js"></script>
     <script src="~/assets/js/shop.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 </html>

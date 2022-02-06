@@ -6,8 +6,6 @@ using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,10 +25,29 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             _IPedidoService = iPedidoService;
             _IClienteRepository = iClienteRepository;
         }
-        public async Task<ActionResult> Lista()
+        public async Task<IActionResult> Lista()
         {
             var lista = await _IPedidoRepository.ObterTodos();
+            lista.ToList().ForEach(a => a.Total = a.ItensPedido.Where(c=>c.Status==true).Sum(b=>b.Valor * b.Quantidade));
             return View(lista);
+        }
+        public async Task<IActionResult> Detalhes(int id)
+        {
+            var pedido = await _IPedidoRepository.ObterPedidoItemPorIdPedido(id);
+            return View(pedido);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CancelarPedido(int PedidoId, string observacao)
+        {
+            await _IPedidoService.Cancelar(PedidoId, observacao, true);
+            //Enviar SMS ao cliente
+            return Redirect($"/Admin/Pedido/Detalhes/{PedidoId}");
+        }
+        public async Task<JsonResult> ConcluirPedido()
+        {
+            //Persistir em base de dados
+            //Enviar SMS
+            return Json("");
         }
 
         [HttpGet]

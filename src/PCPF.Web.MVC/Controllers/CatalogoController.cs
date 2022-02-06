@@ -61,5 +61,14 @@ namespace PCPF.Web.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [Route("pesquisar-produtos")]
+        public async Task<IActionResult> PesquisarProduto(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+                return RedirectToAction("Index");
+            var produtos = await _IProdutoRepository.Buscar(a => a.Descricao.Contains(query));
+            return View("Index", produtos);
+        }
     }
 }

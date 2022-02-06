@@ -14,10 +14,13 @@ namespace PCPF.Domain.Services
    public class PedidoService : BaseService, IPedidoService
     {
         private readonly IPedidoRepository _IPedidoRepository;
-
-        public PedidoService(IPedidoRepository IPedidoRepository, INotificador iNotificador) : base(iNotificador)
+        private readonly ISMSGatewayFacade _ISMSGatewayFacade;
+        private readonly IClienteRepository _IClienteRepository;
+        public PedidoService(IPedidoRepository IPedidoRepository, ISMSGatewayFacade ISMSGatewayFacade, IClienteRepository IClienteRepository, INotificador iNotificador) : base(iNotificador)
         {
             _IPedidoRepository = IPedidoRepository;
+            _ISMSGatewayFacade = ISMSGatewayFacade;
+            _IClienteRepository = IClienteRepository;
         }
 
         public async Task ActualizarPedidoRascunho(IEnumerable<PedidoRascunho> pedido)
@@ -42,6 +45,21 @@ namespace PCPF.Domain.Services
             if (!ExecutarValidacao(new PedidoValidation(), entity)) return;
 
             await _IPedidoRepository.Atualizar(entity);
+        }
+
+        public async Task Cancelar(int id, string observacao, bool sms)
+        {
+            var pedido = await _IPedidoRepository.Buscar(a => a.Id == id);
+            var pedidoSelecionado = pedido.FirstOrDefault();
+            pedidoSelecionado.StatusPedido = StatusPedido.Cancelado;
+            pedidoSelecionado.Observacao = observacao;
+            await _IPedidoRepository.Atualizar(pedidoSelecionado);
+            if (sms)
+            {
+                var clienteTelefone = await _IClienteRepository.ObterPorId(pedidoSelecionado.ClienteId);
+
+                await _ISMSGatewayFacade.Enviar(clienteTelefone.Telefone, $"Caro cliente o seu pedido foi cancelado por: {observacao}");
+            }
         }
 
         public void CriarPedido(IEnumerable<PedidoRascunho> pedidoRascunhos)

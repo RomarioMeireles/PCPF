@@ -27,6 +27,7 @@ namespace PCPF.Domain.Services
             var pedido = _IPedidoRepository.ObterPorId(idPedido).Result;
             pedido.StatusPedido = Model.ValueObjects.StatusPedido.Processamento;
             entity.PedidoId = idPedido;
+            entity.Observacao = pedido.Observacao;
            
             return _IPagamentoRepository.Adicionar(entity, pedido);
         }

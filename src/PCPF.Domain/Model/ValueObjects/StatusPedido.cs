@@ -4,6 +4,7 @@
     {
         Analise,
         Processamento,
-        Finalizado
+        Finalizado,
+        Cancelado
     }
 }

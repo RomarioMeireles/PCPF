@@ -1,5 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ICollection<PCPF.Domain.Model.Pagamento>
 @{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Listagem</h3>
+    </div>
+
+    @await Component.InvokeAsync("Summary")
+
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            @*<a href="/Admin/Produto/novo-produto" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th tabindex="0" class="sorting_1">Referência</th>
+                                <th>Cliente</th>
+                                <th>Data do pedido</th>
+                                <th>Status</th>
+                                <th>Data de Finalização</th>
+                                <th>Valor do pagamento</th>
+                                <th>Comprovativo</th>
+                                <th>Observação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var item in Model)
+                            {
+                                <tr role="row" class="even">
+                                    <td tabindex="0" class="sorting_1">@item.Pedido.Referencia</td>
+                                    <td>@item.Pedido.Cliente.Nome</td>
+                                    <td>@item.Pedido.IniciadoEm</td>
+                                    <td>
+                                        @if (item.Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
+                                        {
+                                            <b class="btn btn-warning">@item.Pedido.StatusPedido</b>
+                                        }
+                                        else if (item.Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Processamento)
+                                        {
+                                            <b class="btn btn-primary">@item.Pedido.StatusPedido</b>
+                                        }
+                                        else
+                                        {
+                                            <b class="btn btn-success">@item.Pedido.StatusPedido</b>
+                                        }
+                                    </td>
+                                    <td>@item.Pedido.FinalizadoEm</td>
+                                    <td>@item.ValotTotal.ToString("N")</td>
+                                    <td><a href="/Admin/Pagamento/Download/?filename=@item.Comprovativo"> <spam class="fa fa-download"></spam></a> </td>
+                                    <td>@item.Observacao</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr role="row">
+                                <th tabindex="0" class="sorting_1">Referência</th>
+                                <th>Cliente</th>
+                                <th>Data do pedido</th>
+                                <th>Status</th>
+                                <th>Data de Finalização</th>
+                                <th>Valor do pagamento</th>
+                                <th>Comprovativo</th>
+                                <th>Observação</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            @*<div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>*@
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>

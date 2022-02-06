@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<PCPF.Domain.Model.Pedido>
 @using Microsoft.AspNetCore.Http;
+@using PCPF.Web.MVC.Extensions;
 @inject IHttpContextAccessor HttpContextAccessor;
 <div class="well well-small">
     <h1> <small class="pull-right"> @Model.Count() pedido(s)</small></h1>
@@ -25,23 +26,16 @@
                         <td>@item.Referencia</td>
                         <td>@item.IniciadoEm</td>
                         <td>
-                            @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
-                            {
-                                <b style="color:orange">@item.StatusPedido</b>
-                            }
-                            @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Finalizado)
-                            {
-                                <b style="color:green">@item.StatusPedido</b>
-                            }
+                            @Html.Raw(this.StatusPedido(item.StatusPedido))
                         </td>
                         <td>@item.Total.ToString("N")</td>
                         <td>@item.Observacao</td>
                         <td>
+                            <a href="/Pedido/PedidoDetalhes/@item.Id" class="btn btn-warning"> <span class="icon-search"></span></a>
                             @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
                             {
                                 <a href="/Pedido/EfectuarPagamento/@item.Id" class="btn btn-success">Pagar <span class="icon-money"></span></a>
                             }
-
                         </td>
                     </tr>
                 }

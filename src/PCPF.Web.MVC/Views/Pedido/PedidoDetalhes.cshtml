@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PCPF.Domain.Model.PedidoItem>
+@using PCPF.Web.MVC.Extensions;
+<div class="well well-small">
+
+    <hr class="soft">
+    <h2>Pedido</h2>
+    <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>#Ref</th>
+                <th>Nome</th>
+                <th>Telefone/Email</th>
+                <th>Data do pedido</th>
+                <th>Data Finalização</th>
+                <th>Status do Pedido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.FirstOrDefault().Pedido.Referencia</td>
+                <td>@Model.FirstOrDefault().Pedido.Cliente.Nome</td>
+                <td>@Model.FirstOrDefault().Pedido.Cliente.Telefone / @Model.FirstOrDefault().Pedido.Cliente.Email</td>
+                <td>@Model.FirstOrDefault().Pedido.IniciadoEm</td>
+                <td>@Model.FirstOrDefault().Pedido.FinalizadoEm</td>
+                <td>
+                    @Html.Raw(this.StatusPedido(Model.FirstOrDefault().Pedido.StatusPedido))
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor Un</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(a => a.Status == true))
+            {
+                decimal total = 0;
+                total = item.Valor * item.Quantidade;
+                <tr>
+                    <td><img style="width:50px; height:40px;" src="/imagens/@item.Produto.Imagem" alt=""></td>
+                    <td>@item.Produto.Descricao</td>
+                    <td>@item.Quantidade</td>
+                    <td>@item.Valor</td>
+                    <td>@total</td>
+                </tr>
+            }
+            <tr style="font-weight:bold">
+                <td colspan="4" style="text-align:right">Total</td>
+                <td>
+                    @Model.Where(a => a.Status == true).Sum(b => b.Valor * b.Quantidade).ToString("N")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    @if (Model.FirstOrDefault().Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Processamento)
+    {
+        <form action="/Pedido/CancelarPedido" method="post">
+            <div class="control-group">
+                <label class="control-label" for="observacao">Cancelar o Pedido <sup>*</sup></label>
+                <div class="controls">
+                    <input id="observacao" name="observacao" placeholder="Observação" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-danger">
+                        <span class="icon-shopping-cart"></span> Cancelar
+                    </button>
+                </div>
+            </div>
+            @*<center>
+                    <a class="btn" href="" role="button" onclick="SetPedidoId(@Model.FirstOrDefault().PedidoId)"><span class="icon-shopping-cart"></span> Cancelar</a>
+                </center>*@
+            <input type="hidden" name="PedidoId" id="PedidoId" value="@Model.FirstOrDefault().PedidoId" />
+        </form>
+    }
+
+    <br />
+</div>

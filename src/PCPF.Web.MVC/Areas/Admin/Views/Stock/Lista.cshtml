@@ -4,52 +4,76 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="card card-green" style="margin-left:1%;">
+<div class="card">
     <div class="card-header">
-        <h3>LISTA DO STOCK</h3>
+        <h3 class="card-title">Listagem de Stock</h3>
     </div>
 
-    <div class="container">
-        <form method="get" class="apply_from" enctype="multipart/form-data">
-            <br />
-            <a href="/Admin/Stock/Cadastrar" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a>
-            <br />
-            <br />
-            <div class="table table-bordered">
-                <div style="overflow-x:auto;">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr style="background-color:#f5f5f5;text-align:center">
+    @await Component.InvokeAsync("Summary")
 
-                                <th> ProdutoId </th>
-                                <th> Nº lote </th>
-                                <th> Quantidade </th>
-                                <th> Data validade </th>
-                                <th> Operador </th>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            @*<a href="/Admin/Produto/novo-produto" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th></th>
+                                <th tabindex="0" class="sorting_1">Produto</th>
+                                <th>CodigoBarras</th>
+                                <th>Nº Lote</th>
+                                <th>Quantidade Mínima</th>
+                                <th>Quantidade Stock</th>
+                                <th>Data de Validade</th>
+                                <th>Data de registo</th>
                                 <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
 
-                            @foreach (PCPF.Domain.Model.Stock f in Model)
 
+                            @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td> @f.ProdutoId </td>
-                                    <td> @f.NumeroLote </td>
-                                    <td> @f.Quantidade </td>
-                                    <td> @f.DataValidade </td>
-                                    <td> @f.UtilizadorId </td>
+                                <tr role="row" class="even">
                                     <td>
-                                        <a href="@Url.ActionLink("Actualizar","Stock", new { id = f.Id, })" class="btn btn-dark"> <span class="fas fa-edit"></span> Editar </a>
-
-                                        @*@Html.ActionLink("Editar", "Actualizar", new { id = f.Id }) |*@
+                                        <img src="~/imagens/@item.Produto.Imagem" class="img-circle" width="60" height="40" />
                                     </td>
-
+                                    <td tabindex="0" class="sorting_1">@item.Produto.Descricao</td>
+                                    <td>@item.Produto.CodigoBarras</td>
+                                    <td>@item.NumeroLote</td>
+                                    <td>@item.Produto.QuantidadeMinima</td>
+                                    <td>@item.Quantidade</td>
+                                    <td>
+                                        @item.DataValidade
+                                    </td>
+                                    <td>@item.DataRegisto</td>
+                                    <td>
+                                        <a href="" class="btn btn-warning"><spam class="fa fa-edit"></spam> </a>
+                                        <a class="btn btn-danger" href=""><spam class="fa fa-trash"></spam> </a>
+                                    </td>
                                 </tr>
                             }
-                        </thead>
+                        </tbody>
+                        <tfoot>
+                            <tr role="row">
+                                <th></th>
+                                <th tabindex="0" class="sorting_1">Produto</th>
+                                <th>CodigoBarras</th>
+                                <th>Nº Lote</th>
+                                <th>Quantidade Mínima</th>
+                                <th>Quantidade Stock</th>
+                                <th>Data de Validade</th>
+                                <th>Data de registo</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
-        </form>
+            @*<div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>*@
+        </div>
     </div>
+    <!-- /.card-body -->
 </div>

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<PCPF.Domain.Model.PedidoItem>
+@{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using PCPF.Web.MVC.Extensions;
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Main content -->
+                <div class="invoice p-3 mb-3">
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <i></i> @Model.FirstOrDefault().Pedido.Cliente.Nome
+                                <small class="float-right">Pedido: @Model.FirstOrDefault().Pedido.Referencia</small><br />
+                               
+                            </h4>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            <address>
+                                @Model.FirstOrDefault().Pedido.Cliente.Telefone / @Model.FirstOrDefault().Pedido.Cliente.Email<br>
+                                Data do Pedido: @Model.FirstOrDefault().Pedido.IniciadoEm<br>
+                                Data Finalização: @Model.FirstOrDefault().Pedido.FinalizadoEm<br />
+                                @Html.Raw(this.StatusPedido(Model.FirstOrDefault().Pedido.StatusPedido))
+                                <br>
+                            </address>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <!-- Table row -->
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>N/O</th>
+                                    <th></th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor Un</th>
+                                    <th>Total</th>
+                                </tr>
+                                @{ int c = 1;
+                                }
+                                <tbody>
+                                    @foreach (var item in Model.Where(a => a.Status == true))
+                                    {
+                                        decimal total = 0;
+                                        total = item.Valor * item.Quantidade;
+                                        <tr>
+                                            <td>@c</td>
+                                            <td><img style="width:50px; height:40px;" src="/imagens/@item.Produto.Imagem" alt=""></td>
+                                            <td>@item.Produto.Descricao</td>
+                                            <td>@item.Quantidade</td>
+                                            <td>@item.Valor.ToString("N")</td>
+                                            <td>
+                                                @total.ToString("N")
+                                            </td>
+                                        </tr>
+                                        c++;
+                                    }
+                                </tbody>
+                                <tr style="font-size: 1.4em; border-top: 1px solid #3989c6;">
+                                    <td colspan="5" style="text-align:right; font-weight:bold;">Total</td>
+                                    <td style="font-weight:bold; color:green">@Model.Where(a => a.Status == true).Sum(b => b.Valor * b.Quantidade).ToString("N")</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                      
+                        <div class="col-8">
+                            @if (Model.FirstOrDefault().Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Processamento)
+                            {
+                                <form method="post" class="apply_from" action="/Admin/Pedido/CancelarPedido">
+                                    <div class="form-group">
+                                        <div class="col-xs-12 col-sm-8">
+                                            <div class="label">Cancelar o Pedido </div>
+                                            <textarea style="width:300px; height:120px;" name="observacao" id="observacao"></textarea>
+                                        </div>
+                                    </div><!--end form group-->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-8">
+                                                <div class="text-field">
+                                                    <button class="btn btn-danger">
+                                                        <spam class="fa fa-trash"></spam> Cancelar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--end form group-->
+                                    <input type="hidden" name="PedidoId" id="PedidoId" value="@Model.FirstOrDefault().PedidoId" />
+                                </form>
+                            }
+
+
+                        </div>
+                        <!-- /.col -->
+
+                    </div>
+                </div>
+                <!-- /.invoice -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

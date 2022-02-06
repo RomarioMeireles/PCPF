@@ -1,5 +1,8 @@
-﻿using PCPF.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PCPF.Domain.Interfaces;
 using PCPF.Domain.Model;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -23,6 +26,10 @@ namespace PCPF.Infra.Data.Repository
                 transaction.Complete();
             }
             return Task.CompletedTask;
+        }
+        public override async Task<IEnumerable<Pagamento>> ObterTodos()
+        {
+            return await DbSet.Include(a => a.Pedido).Include(a => a.Pedido.Cliente).Where(a=>a.Status==true).AsNoTrackingWithIdentityResolution().ToListAsync();
         }
     }
 }

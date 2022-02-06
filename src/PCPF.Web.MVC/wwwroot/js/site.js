@@ -1,4 +1,18 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿function SetPedidoId(valor) {
+    var Id = valor;
+    $('#PedidoId').val(Id);
+}
+function CancelarPedido() {
+    $.ajax({
+        url: "/Pedido/CancelarPedido/",
+        type: 'POST',
+        data: { id: $('#PedidoId').val(), observacao: $('#Observacao').val() },
+        success: function (result) {
+            alert(result);
+            window.location = "/Pedido/MeusPedidos";
+        },
+        error: function (result) {
+            alert("Ocorreu um erro: " + result);
+        }
+    });
+}

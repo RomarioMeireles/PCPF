@@ -9,6 +9,7 @@ using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Notificacoes;
 using PCPF.Domain.Services;
+using PCPF.Infra.AntiCorrupion.SMSGateway;
 using PCPF.Infra.Data.Repository;
 using System;
 
@@ -30,6 +31,7 @@ namespace PCPF.Web.MVC
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
             services.AddHttpContextAccessor();
+            services.AddHttpClient<ISMSGatewayFacade, SMSGatewayFacade>();
             services.AddControllersWithViews();
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -53,6 +55,7 @@ namespace PCPF.Web.MVC
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<IUtilizadorRepository, UtilizadorRepository>();
             services.AddScoped<IUtilizadorService, UtilizadorService>();
+            //services.AddScoped<ISMSGatewayFacade, SMSGatewayFacade>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

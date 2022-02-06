@@ -51,7 +51,6 @@ namespace PCPF.Infra.Data.Repository
         public async Task<IEnumerable<PedidoRascunho>> ObterPedidoRascunhoPorSessaoId(string sessaoId)
         {
             return await Db.PedidoRascunho.Where(a => a.SessionId == sessaoId).ToListAsync();
-
         }
 
         public async Task<IEnumerable<PedidoRascunho>> ObterPedidoRascunhoPorUserName(string userName)
@@ -66,7 +65,15 @@ namespace PCPF.Infra.Data.Repository
         }
         public async Task<IEnumerable<PedidoItem>> ObterPedidoItemPorIdPedido(int idPedido)
         {
-            return await Db.PedidoItem.Include(a => a.Pedido).Include(b => b.Produto).AsNoTrackingWithIdentityResolution().Where(a=>a.PedidoId== idPedido).ToListAsync();
+            return await Db.PedidoItem.Include(a => a.Pedido).Include(b => b.Produto).Include(a=>a.Pedido.Cliente).AsNoTrackingWithIdentityResolution().Where(a=>a.PedidoId== idPedido).ToListAsync();
         }
+        public override async Task<IEnumerable<Pedido>> ObterTodos()
+        {
+            return await DbSet.Include(a => a.ItensPedido).Include(a => a.Cliente).AsNoTrackingWithIdentityResolution().Where(a => a.Status == true && a.Cliente.Status == true).ToListAsync();
+        }
+        //public override async Task<Pedido> ObterPorId(int id)
+        //{
+        //    return await DbSet.Include(a => a.ItensPedido).Where(a => a.Status == true).FirstOrDefaultAsync();
+        //}
     }
 }
