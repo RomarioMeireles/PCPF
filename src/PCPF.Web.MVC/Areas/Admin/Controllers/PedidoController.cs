@@ -17,13 +17,15 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
         private readonly IPedidoRepository _IPedidoRepository;
         private readonly IPedidoService _IPedidoService;
         private readonly IClienteRepository _IClienteRepository;
+        private readonly ISMSGatewayFacade _ISMSGatewayFacade;
 
         public PedidoController(IPedidoRepository iPedidoRepository, IPedidoService iPedidoService,
-           IClienteRepository iClienteRepository, INotificador notificador) : base(notificador)
+           IClienteRepository iClienteRepository, ISMSGatewayFacade ISMSGatewayFacade, INotificador notificador) : base(notificador)
         {
             _IPedidoRepository = iPedidoRepository;
             _IPedidoService = iPedidoService;
             _IClienteRepository = iClienteRepository;
+            _ISMSGatewayFacade = ISMSGatewayFacade;
         }
         public async Task<IActionResult> Lista()
         {
@@ -42,6 +44,20 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             await _IPedidoService.Cancelar(PedidoId, observacao, true);
             //Enviar SMS ao cliente
             return Redirect($"/Admin/Pedido/Detalhes/{PedidoId}");
+        }
+        public async Task<JsonResult> EnviarSMSPedido(int pedidoId, string mensagem)
+        {
+            try
+            {
+                var pedido = await _IPedidoRepository.ObterPorId(pedidoId);
+                var cliente = await _IClienteRepository.ObterPorId(pedido.ClienteId);
+                await _ISMSGatewayFacade.Enviar(cliente.Telefone, mensagem);
+                return Json("Mensagem enviada com sucesso.");
+            }
+            catch (System.Exception erro)
+            {
+                return Json(erro.Message);
+            }
         }
         public async Task<JsonResult> ConcluirPedido()
         {

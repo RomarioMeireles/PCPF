@@ -16,3 +16,16 @@ function CancelarPedido() {
         }
     });
 }
+function EnviarSMSPedido() {
+    $.ajax({
+        url: "/Admin/Pedido/EnviarSMSPedido/",
+        type: 'POST',
+        data: { pedidoId: $('#PedidoId').val(), mensagem: $('#mensagem').val() },
+        success: function (result) {
+            alert(result);
+        },
+        error: function (result) {
+            alert("Ocorreu um erro: " + result);
+        }
+    });
+}

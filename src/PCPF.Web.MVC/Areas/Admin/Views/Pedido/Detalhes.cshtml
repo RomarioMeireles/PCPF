@@ -17,7 +17,7 @@
                             <h4>
                                 <i></i> @Model.FirstOrDefault().Pedido.Cliente.Nome
                                 <small class="float-right">Pedido: @Model.FirstOrDefault().Pedido.Referencia</small><br />
-                               
+                                <a href="" class="btn btn-success float-right" data-toggle="modal" data-target="#defaultModal" data-backdrop="static" data-keyboard="false"><spam class="fa fa-phone"></spam> Enviar SMS</a>
                             </h4>
                         </div>
                         <!-- /.col -->
@@ -116,3 +116,22 @@
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Enviar SMS ao cliente
+            </div>
+            <div class="modal-body">
+                <center>
+                    Mensagem
+                    <textarea class="form-control" id="mensagem" name="mensagem"></textarea>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="EnviarSMSPedido()" class="btn btn-success waves-effect">Enviar</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
