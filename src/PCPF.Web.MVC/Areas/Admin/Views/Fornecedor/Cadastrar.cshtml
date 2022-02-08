@@ -4,19 +4,16 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="card card-green">
+<div class="card card-gray">
     <div class="card-header">
-        <h3 class="card-title">CADASTRAR FORNECEDOR DE PRODUTOS</h3>
+        <h3 class="card-title">Cadastrar de fornecedor</h3>
     </div>
 
     <div class="col-xs-12 col-sm-8 custom_right">
         <div class="single_content_left">
-            <form method="post" class="apply_from" enctype="multipart/form-data">
-
-                @Html.AntiForgeryToken()
-                
+            <form method="post" class="apply_from">
                 <br />
-                @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
+                @await Component.InvokeAsync("Summary")
 
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
@@ -42,17 +39,9 @@
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-8">
                         <div class="label">Endereço</div>
-                        <input type="text" class="form-control" name="Endereco">
+                        <textarea name="Endereco" style="width:700px; height:150px" class="form-control"></textarea>
                     </div>
                 </div><!--end form group-->
-
-@*                <div class="form-group">
-                    <div class="col-xs-12 col-sm-8">
-                        <div class="text-field">
-                            @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>*@
                 <!--end form group-->
 
 
@@ -61,7 +50,7 @@
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
                                 <input type="submit" value="Cadastrar" class="btn btn-success" />
-                                <a href="/Admin/Fornecedor/Lista" class="btn btn-danger" style="color:white">Voltar</a>
+                                <a href="javascript:window.history.back();" class="btn btn-danger" style="color:white">Voltar</a>
                             </div>
                         </div>
                     </div>

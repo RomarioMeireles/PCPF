@@ -5,19 +5,19 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="card card-green">
+<div class="card card-gray" >
     <div class="card-header">
-        <h2 style="text-align:center">ACTUALIZAR DADOS DO FORNECEDOR</h2>
+        <h2 style="text-align:center">Actualizar dados do Fornecedor</h2>
     </div>
     <div class="col-xs-12 col-sm-8 custom_right">
         <div class="single_content_left">
             <form method="post" class="apply_from" enctype="multipart/form-data">
 
-                @Html.AntiForgeryToken()
+
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Id)
 
+                <input type="hidden" value="=@Model.Id" />
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                @Html.EditorFor(model => model.DenominacaoFiscal, new { htmlAttributes = new { @class = "form-control" } })
+                                <input asp-for="DenominacaoFiscal" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                <input asp-for="Email" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                                <input asp-for="Telefone" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -62,36 +62,15 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8">
-                            <div class="label">Documento</div>
+                            <div class="label">Endereço</div>
                         </div>
                         <div class="col-xs-12 col-sm-8">
                             <div class="text-field">
-                                @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+                                <textarea name="Endereco" style="width:700px; height:150px" class="form-control">@Model.Endereco</textarea>
                             </div>
                         </div>
                     </div>
                 </div><!--end form group-->
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="label">Activo?
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.Status)
-                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                        </div></div>
-
-                @*<div class="form-group">
-                    <div class="col-xs-12 col-sm-8">
-                        <div class="text-field">
-                            @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>*@
-
 
                 <div class="form-group">
                     <div class="row">

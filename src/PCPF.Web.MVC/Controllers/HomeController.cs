@@ -67,7 +67,7 @@ namespace PCPF.Web.MVC.Controllers
                 switch (utilizadorSelecionado.Perfil)
                 {
                     case Domain.Model.ValueObjects.Perfil.Administrador:
-                        returnUrl = "/Admin/Utilizador/Cadastrar";
+                        returnUrl = "/Admin/Dashboard/Index";
                         break;
                     case Domain.Model.ValueObjects.Perfil.Cliente:
                         if(TempData["returnUrl"]!=null)
