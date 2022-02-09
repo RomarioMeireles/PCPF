@@ -47,7 +47,11 @@
                                     <td>@item.Total.ToString("N")</td>
                                     <td>
                                         <a class="btn btn-warning" href="/Admin/Pedido/Detalhes/@item.Id"> <spam class="fa fa-search"></spam> </a>
-                                        <a class="btn btn-success" href="">Concluir <spam class="fa fa-check"></spam> </a>
+                                        @if (item.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Processamento)
+                                        {
+                                            <a class="btn btn-success" href="" onclick="SetPedidoId(@item.Id)" data-toggle="modal" data-target="#defaultModal" data-backdrop="static" data-keyboard="false">Concluir <spam class="fa fa-check"></spam> </a>
+                                        }
+
                                     </td>
                                 </tr>
                             }
@@ -71,4 +75,22 @@
         </div>
     </div>
     <!-- /.card-body -->
+</div>
+
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Aviso
+            </div>
+            <div class="modal-body">
+                Deseja realmente concluir o pedido?
+                <input type="hidden" name="PedidoId" id="PedidoId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="ConcluirPedido()" class="btn btn-success waves-effect">Sim</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
 </div>

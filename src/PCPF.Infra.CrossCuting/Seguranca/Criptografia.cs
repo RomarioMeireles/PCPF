@@ -5,6 +5,7 @@ namespace PCPF.Infra.CrossCuting.Seguranca
 {
     public static class Criptografia
     {
+        //Criptografia para a senha/password
         public static string CriptografarSenha(string Senha)
         {
             MD5 md5 = MD5.Create();

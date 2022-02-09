@@ -16,11 +16,13 @@ namespace PCPF.Domain.Services
         private readonly IPedidoRepository _IPedidoRepository;
         private readonly ISMSGatewayFacade _ISMSGatewayFacade;
         private readonly IClienteRepository _IClienteRepository;
-        public PedidoService(IPedidoRepository IPedidoRepository, ISMSGatewayFacade ISMSGatewayFacade, IClienteRepository IClienteRepository, INotificador iNotificador) : base(iNotificador)
+        private readonly IStockRepository _IStockRepository;
+        public PedidoService(IPedidoRepository IPedidoRepository, ISMSGatewayFacade ISMSGatewayFacade, IClienteRepository IClienteRepository, IStockRepository IStockRepository, INotificador iNotificador) : base(iNotificador)
         {
             _IPedidoRepository = IPedidoRepository;
             _ISMSGatewayFacade = ISMSGatewayFacade;
             _IClienteRepository = IClienteRepository;
+            _IStockRepository = IStockRepository;
         }
 
         public async Task ActualizarPedidoRascunho(IEnumerable<PedidoRascunho> pedido)
@@ -62,6 +64,17 @@ namespace PCPF.Domain.Services
             }
         }
 
+        public Task Concluir(int id)
+        {
+            var pedido = _IPedidoRepository.ObterPorId(id).Result;
+            pedido.StatusPedido = StatusPedido.Finalizado;
+
+            //Debitar pedido
+            _IStockRepository.DebitarStock(pedido);
+
+            return Task.CompletedTask;
+        }
+        //Criar pedido
         public void CriarPedido(IEnumerable<PedidoRascunho> pedidoRascunhos)
         {
             var pedido = new Pedido() 

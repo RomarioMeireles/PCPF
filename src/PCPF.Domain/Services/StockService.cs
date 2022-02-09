@@ -29,6 +29,13 @@ namespace PCPF.Domain.Services
             await _IStockRepository.Atualizar(entity);
         }
 
+        public async Task CreditarStock(int stockId, int quantidade)
+        {
+            var stock = await _IStockRepository.ObterPorId(stockId);
+            stock.Quantidade += quantidade;
+            await _IStockRepository.Atualizar(stock);
+        }
+
         public async Task Remover(int id)
         {
             await _IStockRepository.Remover(id);

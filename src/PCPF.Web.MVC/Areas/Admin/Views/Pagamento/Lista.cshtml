@@ -3,7 +3,7 @@
     ViewBag.Title = "Pedidos";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+@using PCPF.Web.MVC.Extensions;
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Listagem</h3>
@@ -40,18 +40,7 @@
                                     <td>@item.Pedido.Cliente.Nome</td>
                                     <td>@item.Pedido.IniciadoEm</td>
                                     <td>
-                                        @if (item.Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Analise)
-                                        {
-                                            <b class="btn btn-warning">@item.Pedido.StatusPedido</b>
-                                        }
-                                        else if (item.Pedido.StatusPedido == PCPF.Domain.Model.ValueObjects.StatusPedido.Processamento)
-                                        {
-                                            <b class="btn btn-primary">@item.Pedido.StatusPedido</b>
-                                        }
-                                        else
-                                        {
-                                            <b class="btn btn-success">@item.Pedido.StatusPedido</b>
-                                        }
+                                        @Html.Raw(this.StatusPedido(item.Pedido.StatusPedido))
                                     </td>
                                     <td>@item.Pedido.FinalizadoEm</td>
                                     <td>@item.ValotTotal.ToString("N")</td>

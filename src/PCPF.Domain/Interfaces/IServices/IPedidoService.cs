@@ -14,5 +14,6 @@ namespace PCPF.Domain.Interfaces.IServices
         void CriarPedido(IEnumerable<PedidoRascunho> pedidoRascunhos);
         Task RemoverItemRascunho(int id);
         Task Cancelar(int id, string observacao, bool sms);
+        Task Concluir(int id);
     }
 }

@@ -37,6 +37,12 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             return View(lista);
         }
 
+        public async Task<JsonResult> CreditarStock(int id, int quantidade)
+        {
+            await _IStockService.CreditarStock(id, quantidade);
+            return Json("Stock creditado com sucesso.");
+        }
+
         [HttpGet]
         public async Task<ActionResult> Cadastrar()
         {

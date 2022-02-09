@@ -9,5 +9,6 @@ namespace PCPF.Domain.Interfaces.IServices
         Task Adicionar(Stock entity);
         Task Atualizar(Stock entity);
         Task Remover(int id);
+        Task CreditarStock(int stockId, int quantidade);
     }
 }

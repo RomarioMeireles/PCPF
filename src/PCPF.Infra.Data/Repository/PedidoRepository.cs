@@ -71,9 +71,9 @@ namespace PCPF.Infra.Data.Repository
         {
             return await DbSet.Include(a => a.ItensPedido).Include(a => a.Cliente).AsNoTrackingWithIdentityResolution().Where(a => a.Status == true && a.Cliente.Status == true).ToListAsync();
         }
-        //public override async Task<Pedido> ObterPorId(int id)
-        //{
-        //    return await DbSet.Include(a => a.ItensPedido).Where(a => a.Status == true).FirstOrDefaultAsync();
-        //}
+        public override async Task<Pedido> ObterPorId(int id)
+        {
+            return await DbSet.Include(a => a.ItensPedido).Where(a => a.Status == true).FirstOrDefaultAsync();
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿@model IEnumerable<PCPF.Domain.Model.Utilizador>
-@using PCPF.Web.MVC.Extensions;
+﻿@model ICollection<PCPF.Domain.Model.Cliente>
 @{
-    ViewBag.Title = "Lista de Utilizadores";
+    ViewBag.Title = "Clientes";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@using PCPF.Web.MVC.Extensions;
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Listagem</h3>
@@ -14,18 +14,18 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <a href="/Admin/Utilizador/Cadastrar" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />
+            @*<a href="/Admin/Produto/novo-produto" class="btn btn-dark"> <span class="fas fa-book"></span> Novo Registo </a><br /><br />*@
             <div class="row">
                 <div class="col-sm-12">
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
                                 <th tabindex="0" class="sorting_1">Nome</th>
+                                <th>Telefone</th>
+                                <th>Doc. Identificacao</th>
+                                <th>Email</th>
                                 <th>UserName</th>
-                                <th>Perfil</th>
-                                <th>Situação</th>
-                                <th>Data de registo</th>
-                                <th></th>
+                                <th>Data Registo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,24 +35,22 @@
                             {
                                 <tr role="row" class="even">
                                     <td tabindex="0" class="sorting_1">@item.Nome</td>
+                                    <td>@item.Telefone</td>
+                                    <td>@item.DocumentoIdentificacao</td>
+                                    <td>@item.Email</td>
                                     <td>@item.UserName</td>
-                                    <td>@Enum.GetName(typeof(PCPF.Domain.Model.ValueObjects.Perfil), item.Perfil)</td>
-                                    <td style="color:@this.Status(item.Status).Item2; font-weight:bold">@this.Status(item.Status).Item1</td>
                                     <td>@item.DataRegisto</td>
-                                    <td>
-                                        @*<a class="btn btn-danger" href="/Facturacao/Cliente/dados-do-cliente/@item.Id"><spam class="fa fa-trash"></spam> </a>*@
-                                    </td>
                                 </tr>
                             }
                         </tbody>
                         <tfoot>
                             <tr role="row">
                                 <th tabindex="0" class="sorting_1">Nome</th>
+                                <th>Telefone</th>
+                                <th>Doc. Identificacao</th>
+                                <th>Email</th>
                                 <th>UserName</th>
-                                <th>Perfil</th>
-                                <th>Situação</th>
-                                <th>Data de registo</th>
-                                <th></th>
+                                <th>Data Registo</th>
                             </tr>
                         </tfoot>
                     </table>

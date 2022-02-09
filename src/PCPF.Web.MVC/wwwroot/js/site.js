@@ -29,3 +29,39 @@ function EnviarSMSPedido() {
         }
     });
 }
+function ConcluirPedido() {
+    $.ajax({
+        url: "/Admin/Pedido/ConcluirPedido/",
+        type: 'POST',
+        data: { id: $('#PedidoId').val(), observacao: $('#Observacao').val() },
+        success: function (result) {
+            alert(result);
+            window.location = "/Admin/Pedido/Lista";
+        },
+        error: function (result) {
+            alert("Ocorreu um erro: " + result);
+        }
+    });
+}
+function SetPedidoId(valor) {
+    var Id = valor;
+    $('#PedidoId').val(Id);
+}
+function SetStockId(valor) {
+    var Id = valor;
+    $('#StockId').val(Id);
+}
+function CreditarStock() {
+    $.ajax({
+        url: "/Admin/Stock/CreditarStock/",
+        type: 'POST',
+        data: { id: $('#StockId').val(), quantidade: $('#Quantidade').val() },
+        success: function (result) {
+            alert(result);
+            window.location = "/Admin/Stock/Lista";
+        },
+        error: function (result) {
+            alert("Ocorreu um erro: " + result);
+        }
+    });
+}

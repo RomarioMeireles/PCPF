@@ -43,7 +43,7 @@ namespace PCPF.Web.MVC.Controllers
                 Valor = produto.Valor,
                 Imagem=produto.Imagem
             };
-
+            //sessão do utilizador
             if (HttpContext.Session.GetString("userName") != null)
             {
                 pedidoRascunho.UserName = HttpContext.Session.GetString("userName");

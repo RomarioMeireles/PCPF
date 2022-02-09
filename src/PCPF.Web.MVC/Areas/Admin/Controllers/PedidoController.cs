@@ -45,6 +45,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             //Enviar SMS ao cliente
             return Redirect($"/Admin/Pedido/Detalhes/{PedidoId}");
         }
+        //Enviar SMS
         public async Task<JsonResult> EnviarSMSPedido(int pedidoId, string mensagem)
         {
             try
@@ -59,11 +60,11 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
                 return Json(erro.Message);
             }
         }
-        public async Task<JsonResult> ConcluirPedido()
+        public async Task<JsonResult> ConcluirPedido(int id)
         {
-            //Persistir em base de dados
+            _IPedidoService.Concluir(id);
             //Enviar SMS
-            return Json("");
+            return Json("Pedido concluido com sucesso.");
         }
 
         [HttpGet]

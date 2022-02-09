@@ -50,8 +50,8 @@
                                     </td>
                                     <td>@item.DataRegisto</td>
                                     <td>
-                                        <a href="" class="btn btn-warning"><spam class="fa fa-edit"></spam> </a>
-                                        <a class="btn btn-danger" href=""><spam class="fa fa-trash"></spam> </a>
+                                        <a href="" class="btn btn-warning" onclick="SetStockId(@item.Id)" data-toggle="modal" data-target="#defaultModal" data-backdrop="static" data-keyboard="false"><spam class="fa fa-plus"></spam> </a>
+                                        @*<a class="btn btn-danger" href=""><spam class="fa fa-trash"></spam> </a>*@
                                     </td>
                                 </tr>
                             }
@@ -76,4 +76,21 @@
         </div>
     </div>
     <!-- /.card-body -->
+</div>
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Creditar no Stock
+            </div>
+            <div class="modal-body">
+                <input type="number" id="Quantidade" class="form-control"/>
+                <input type="hidden" name="StockId" id="StockId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="CreditarStock()" class="btn btn-success waves-effect">Sim</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
 </div>
