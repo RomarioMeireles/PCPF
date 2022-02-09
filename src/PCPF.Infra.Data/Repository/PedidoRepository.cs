@@ -73,7 +73,7 @@ namespace PCPF.Infra.Data.Repository
         }
         public override async Task<Pedido> ObterPorId(int id)
         {
-            return await DbSet.Include(a => a.ItensPedido).Where(a => a.Status == true).FirstOrDefaultAsync();
+            return await DbSet.Include(a => a.ItensPedido).Where(a => a.Id==id).FirstOrDefaultAsync();
         }
     }
 }

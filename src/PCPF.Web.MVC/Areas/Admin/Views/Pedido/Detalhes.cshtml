@@ -127,6 +127,7 @@
                     Mensagem
                     <textarea class="form-control" id="mensagem" name="mensagem"></textarea>
                 </center>
+                <input type="hidden" name="PedidoIdSMS" id="PedidoIdSMS" value="@Model.FirstOrDefault().Pedido.Id" />
             </div>
             <div class="modal-footer">
                 <button type="button" onclick="EnviarSMSPedido()" class="btn btn-success waves-effect">Enviar</button>

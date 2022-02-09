@@ -31,7 +31,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             _IProdutoRepository = iProdutoRepository;
             _IUtilizadorRepository = iUtilizadorRepository;
         }
-        public async Task<ActionResult> Lista()
+        public async Task<IActionResult> Lista()
         {
             var lista = await _IStockRepository.ObterTodos();
             return View(lista);

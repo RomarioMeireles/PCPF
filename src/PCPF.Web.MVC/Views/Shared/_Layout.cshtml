@@ -38,13 +38,13 @@
                         <a href="#"><span class="icon-tumblr"></span></a>
                     </div>
                     <a href="/Home/Index"> <span class="icon-home"></span> Home</a>
-                    <a href="/Cliente/Detalhes"><span class="icon-user"></span> Minha conta</a>
+                    @*<a href="/Cliente/Detalhes"><span class="icon-user"></span> Minha conta</a>*@
                     @if (HttpContextAccessor.HttpContext.Session.GetString("userName") == null)
                     {
                         <a href="/Cliente/Cadastrar"><span class="icon-edit"></span> Registar-se </a>
                     }
                     
-                    <a href=""><span class="icon-envelope"></span> Contacta-nos</a>
+                    @*<a href=""><span class="icon-envelope"></span> Contacta-nos</a>*@
                     @*<a href=""><span class="icon-shopping-cart"></span> Artigo(s) - <span class="badge badge-warning"> AKZ 0.0</span></a>*@
                     <a href="/Pedido/Checkout">@await Component.InvokeAsync("Carrinho")</a>
                 </div>
@@ -90,7 +90,7 @@
                             {
                                 <li class=""><a href="/Pedido/MeusPedidos">Meus pedidos</a></li>
                             }
-                            <li class=""><a href="#">Quem somos</a></li>
+                            @*<li class=""><a href="#">Quem somos</a></li>*@
                         </ul>
                         <form action="/Catalogo/pesquisar-produtos" class="navbar-search pull-left" method="post">
                             <input type="text" placeholder="Procurar" class="search-query span2" name="query" id="query">
