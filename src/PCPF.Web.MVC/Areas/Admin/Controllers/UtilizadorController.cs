@@ -6,12 +6,14 @@ using PCPF.Domain.Model.ValueObjects;
 using PCPF.Domain.Notificacoes;
 using PCPF.Infra.CrossCuting.Seguranca;
 using PCPF.Web.MVC.Controllers;
+using PCPF.Web.MVC.Extensions;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Utilizador")]
+    [Autorizacao("0")]
     public class UtilizadorController : BaseController
     {
         public readonly IUtilizadorRepository _IUtilizadorRepository;

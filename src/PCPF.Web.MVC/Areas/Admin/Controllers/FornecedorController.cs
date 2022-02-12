@@ -5,12 +5,14 @@ using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
+using PCPF.Web.MVC.Extensions;
 using System;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Autorizacao("0")]
     public class FornecedorController : BaseController
     {
         private readonly IFornecedorRepository _IFornecedorRepository;

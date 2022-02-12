@@ -4,6 +4,7 @@ using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Notificacoes;
+using PCPF.Web.MVC.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -54,6 +55,7 @@ namespace PCPF.Web.MVC.Controllers
             }
         }
         [HttpPost]
+        [Autorizacao("1")]
         public async Task<IActionResult> EfectuarPedido()
         {
             var id = HttpContext.Session.GetString("userName");
@@ -63,6 +65,7 @@ namespace PCPF.Web.MVC.Controllers
 
             return RedirectToAction("MeusPedidos");
         }
+        [Autorizacao("1")]
         public async Task<IActionResult> MeusPedidos()
         {
             var pedidos = await _IPedidoRepository.ObterPedidoPorUserName(HttpContext.Session.GetString("userName"));
@@ -74,12 +77,14 @@ namespace PCPF.Web.MVC.Controllers
             await _IPedidoService.RemoverItemRascunho(id);
             return RedirectToAction("Checkout");
         }
+        [Autorizacao("1")]
         public async Task<IActionResult> EfectuarPagamento(int id)
         {
             var pedido = await _IPedidoRepository.ObterPedidoItemPorIdPedido(id);
             return View(pedido);
         }
         [HttpPost]
+        [Autorizacao("1")]
         public async Task<IActionResult> EfectuarPagamento(Pagamento pagamento, IFormFile comprovativo, int id)
         {
             pagamento.Id = 0;
@@ -121,6 +126,7 @@ namespace PCPF.Web.MVC.Controllers
             return View(pedido);
         }
         [HttpPost]
+        [Autorizacao("1")]
         public async Task<IActionResult> CancelarPedido(int PedidoId, string observacao)
         {
             await _IPedidoService.Cancelar(PedidoId, observacao, false);

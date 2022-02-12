@@ -5,16 +5,14 @@ using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
-using PCPF.Domain.Services;
 using PCPF.Web.MVC.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using PCPF.Web.MVC.Extensions;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Autorizacao("0")]
     public class StockController : BaseController
     {
         private readonly IStockRepository _IStockRepository;
@@ -41,6 +39,12 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
         {
             await _IStockService.CreditarStock(id, quantidade);
             return Json("Stock creditado com sucesso.");
+        }
+
+        public async Task<IActionResult> ProdutoStockBaixo()
+        {
+            var produtos = await _IStockRepository.ObterStockBaixo();
+            return View(produtos);
         }
 
         [HttpGet]

@@ -6,6 +6,7 @@ using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
+using PCPF.Web.MVC.Extensions;
 using PCPF.Web.MVC.Models;
 using System;
 using System.IO;
@@ -15,6 +16,7 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("/Admin/Produto")]
+    [Autorizacao("0")]
     public class ProdutoController : BaseController
     {
         private readonly IProdutoRepository _IProdutoRepository;

@@ -6,12 +6,14 @@ using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
+using PCPF.Web.MVC.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Autorizacao("0")]
     public class PedidoController : BaseController
     {
         private readonly IPedidoRepository _IPedidoRepository;

@@ -37,7 +37,7 @@ namespace PCPF.Infra.Data.Repository
 	                [PCPF].[dbo].Produto as t2
 	                on t1.ProdutoId=t2.Id
                 where t2.QuantidadeMinima > t1.Quantidade and t1.Status=1
-            ").ToListAsync();
+            ").Include(a=>a.Produto).ToListAsync();
         }
 
         public Task DebitarStock(Pedido pedido)

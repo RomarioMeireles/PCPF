@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
+using PCPF.Web.MVC.Extensions;
 using System.Linq;
 
 namespace PCPF.Web.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Autorizacao("0")]
     public class DashboardController : Controller
     {
         private readonly IClienteRepository _IClienteRepository;

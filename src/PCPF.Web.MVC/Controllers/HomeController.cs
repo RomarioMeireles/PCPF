@@ -35,12 +35,6 @@ namespace PCPF.Web.MVC.Controllers
             var produtos = await _IProdutoRepository.ObterTodos();
             return View(produtos);
         }
-
-        public IActionResult IndexAdmin()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
@@ -50,6 +44,12 @@ namespace PCPF.Web.MVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult SemAcesso()
+        {
+            return View("SemAcesso",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, Message="Não tem acesso ao recurso." });
         }
 
         public async Task<IActionResult> Login(string userName, string password)
@@ -63,6 +63,7 @@ namespace PCPF.Web.MVC.Controllers
                 HttpContext.Session.SetInt32("userId", utilizadorSelecionado.Id);
                 HttpContext.Session.SetString("userName", utilizadorSelecionado.UserName);
                 HttpContext.Session.SetString("nome", utilizadorSelecionado.Nome);
+                HttpContext.Session.SetString("perfil", utilizadorSelecionado.Perfil.ToString());
 
                 switch (utilizadorSelecionado.Perfil)
                 {
