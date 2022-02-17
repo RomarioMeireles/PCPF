@@ -49,7 +49,9 @@ namespace PCPF.Domain.Services
 
         public async Task Remover(int id)
         {
-            await _IProdutoRepository.Remover(id);
+            var produto = await _IProdutoRepository.ObterPorId(id);
+            produto.Status = false;
+            await _IProdutoRepository.Atualizar(produto);
         }
     }
 }

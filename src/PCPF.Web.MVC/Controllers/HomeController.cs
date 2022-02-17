@@ -63,7 +63,7 @@ namespace PCPF.Web.MVC.Controllers
                 HttpContext.Session.SetInt32("userId", utilizadorSelecionado.Id);
                 HttpContext.Session.SetString("userName", utilizadorSelecionado.UserName);
                 HttpContext.Session.SetString("nome", utilizadorSelecionado.Nome);
-                HttpContext.Session.SetString("perfil", utilizadorSelecionado.Perfil.ToString());
+                HttpContext.Session.SetString("perfil", $"{(byte)utilizadorSelecionado.Perfil}");
 
                 switch (utilizadorSelecionado.Perfil)
                 {
@@ -95,6 +95,7 @@ namespace PCPF.Web.MVC.Controllers
             HttpContext.Session.Remove("userId");
             HttpContext.Session.Remove("userName");
             HttpContext.Session.Remove("nome");
+            HttpContext.Session.Remove("perfil");
             HttpContext.Session.Clear();
 
             return RedirectToAction("Index");

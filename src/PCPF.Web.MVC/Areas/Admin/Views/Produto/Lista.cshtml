@@ -44,7 +44,8 @@
                                     <td>@item.Valor.ToString("N")</td>
                                     <td>@item.DataRegisto</td>
                                     <td>
-                                        <a class="btn btn-danger" href=""><spam class="fa fa-trash"></spam> </a>
+                                        <a class="btn btn-warning" href="/Admin/Produto/actualizar-produto/@item.Id"> <spam class="fa fa-edit"></spam> </a>
+                                        <a class="btn btn-danger" href="" onclick="SetProdutoId(@item.Id)" data-toggle="modal" data-target="#defaultModal" data-backdrop="static" data-keyboard="false"><spam class="fa fa-trash"></spam> </a>
                                     </td>
                                 </tr>
                             }
@@ -67,4 +68,22 @@
         </div>
     </div>
     <!-- /.card-body -->
+</div>
+
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Aviso
+            </div>
+            <div class="modal-body">
+                Deseja realmente remover o produto?
+                <input type="hidden" name="ProdutoId" id="ProdutoId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="InactivarProduto()" class="btn btn-success waves-effect">Sim</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
 </div>

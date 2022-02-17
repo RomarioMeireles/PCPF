@@ -65,7 +65,6 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
         public async Task<JsonResult> ConcluirPedido(int id)
         {
             _IPedidoService.Concluir(id);
-            //Enviar SMS
             return Json("Pedido concluido com sucesso.");
         }
 

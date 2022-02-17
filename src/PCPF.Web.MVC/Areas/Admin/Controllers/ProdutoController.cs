@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
-using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
 using PCPF.Web.MVC.Controllers;
 using PCPF.Web.MVC.Extensions;
@@ -39,14 +38,14 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
 
         [Route("novo-produto")]
         [HttpGet]
-        public ActionResult Cadastrar()
+        public IActionResult Cadastrar()
         {
             return View();
         }
 
         [Route("novo-produto")]
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(ProdutoViewModel pr)
+        public async Task<IActionResult> Cadastrar(ProdutoViewModel pr)
         {
             if (!ModelState.IsValid) return View(pr);
 
@@ -72,35 +71,51 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
             TempData["Sucesso"] = "Operação executada com sucesso!";
             return RedirectToAction("Lista");
         }
-
+        [Route("actualizar-produto/{id:int}")]
         [HttpGet]
-        public async Task<ActionResult> Actualizar(int id)
+        public async Task<IActionResult> Actualizar(int id)
         {
             var a = await _IProdutoRepository.ObterPorId(id);
-
-            if (a == null)
-                return BadRequest();
             return View(a);
         }
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Actualizar(Produto produto)
+        [Route("actualizar-produto/{id:int}")]
+        [HttpPost]
+        public async Task<IActionResult> Actualizar(Produto produto, IFormFile ImagemNova)
         {
-            var validacao = ExecutarValidacao(new ProdutoValidation(), produto);
-            if (!validacao)
+            if (!ModelState.IsValid) return View(produto);
+
+            var oldProduto = await _IProdutoRepository.ObterPorId(produto.Id);
+
+            produto.Imagem = oldProduto.Imagem;
+            produto.UtilizadorId = oldProduto.UtilizadorId;
+
+            if(ImagemNova != null)
             {
-                var erro = ObterMensagensErro();
-                foreach (var item in erro)
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(ImagemNova, imgPrefixo))
                 {
-                    ModelState.AddModelError(string.Empty, item);
+                    return View(produto);
                 }
-                return View(produto);
+
+                var combinedPath = string.Concat(imgPrefixo, ImagemNova.FileName);
+                produto.Imagem = combinedPath;
             }
+
             await _IProdutoService.Atualizar(produto);
 
-            return RedirectToAction("Lista","Produto", new { area = "Admin" });
+            if (!OperacaoValida())
+            {
+                return View(produto);
+            }
+            TempData["Sucesso"] = "Operação executada com sucesso!";
+            return Redirect("/Admin/Produto/lista-de-produtos");
         }
-
+        [Route("inactivar")]
+        public async Task<JsonResult> Inactivar(int id)
+        {
+            await _IProdutoService.Remover(id);
+            return Json("Produto removido com sucesso.");
+        }
         private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
         {
             if (arquivo.Length <= 0) return false;

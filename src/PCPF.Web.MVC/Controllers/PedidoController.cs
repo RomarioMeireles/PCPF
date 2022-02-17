@@ -97,7 +97,7 @@ namespace PCPF.Web.MVC.Controllers
             var combinedPath = string.Concat(docPrefixo, comprovativo.FileName);
             pagamento.Comprovativo = combinedPath;
             await _IPagamentoService.Adicionar(pagamento, id);
-            //Enviar SMS
+       
             TempData["Sucesso"] = "O comprovativo de pagamento foi enviado com sucesso!";
             return RedirectToAction("MeusPedidos");
         }

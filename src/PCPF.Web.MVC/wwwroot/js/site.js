@@ -65,3 +65,21 @@ function CreditarStock() {
         }
     });
 }
+function SetProdutoId(valor) {
+    var Id = valor;
+    $('#ProdutoId').val(Id);
+}
+function InactivarProduto() {
+    $.ajax({
+        url: "/Admin/Produto/inactivar/",
+        type: 'POST',
+        data: { id: $('#ProdutoId').val() },
+        success: function (result) {
+            alert(result);
+            window.location = "/Admin/Pedido/Lista";
+        },
+        error: function (result) {
+            alert("Ocorreu um erro: " + result);
+        }
+    });
+}
