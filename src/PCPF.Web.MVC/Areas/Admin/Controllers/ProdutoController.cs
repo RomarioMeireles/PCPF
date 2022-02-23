@@ -47,6 +47,11 @@ namespace PCPF.Web.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Cadastrar(ProdutoViewModel pr)
         {
+            if (pr.Imagem == null)
+            {
+                Notificar("Selecione a imagem.");
+                return View(pr);
+            }
             if (!ModelState.IsValid) return View(pr);
 
             var imgPrefixo = Guid.NewGuid() + "_";

@@ -21,42 +21,47 @@
         <div class="span7">
             <h3>@Model.Descricao [AKZ @Model.Valor.ToString("N")]</h3>
             <hr class="soft">
-
+            @if (TempData["Error"] != null)
+            {
+                <b style="color:red">@TempData["Error"]</b>;
+            }
+            <br/>
             <form class="form-horizontal qtyFrm" action="/Catalogo/AdicionarItemPedido" method="post">
                 <div class="control-group">
                     <label class="control-label"><span>AKZ @Model.Valor.ToString("N")</span></label>
+                    <label class="control-label"><span>Stock actual: @ViewBag.Quantidade</span></label>
                     <div class="controls">
                         <input type="number" name="quantidade" id="quantidade" class="span6" placeholder="Qtd.">
                     </div>
                 </div>
 
                 @*<div class="control-group">
-                    <label class="control-label"><span>Color</span></label>
-                    <div class="controls">
-                        <select class="span11">
-                            <option>Red</option>
-                            <option>Purple</option>
-                            <option>Pink</option>
-                            <option>Red</option>
-                        </select>
-                    </div>
-                </div>*@
-                @*<div class="control-group">
-                    <label class="control-label"><span>Materials</span></label>
-                    <div class="controls">
-                        <select class="span11">
-                            <option>Material 1</option>
-                            <option>Material 2</option>
-                            <option>Material 3</option>
-                            <option>Material 4</option>
-                        </select>
-                    </div>
+                <label class="control-label"><span>Color</span></label>
+                <div class="controls">
+                    <select class="span11">
+                        <option>Red</option>
+                        <option>Purple</option>
+                        <option>Pink</option>
+                        <option>Red</option>
+                    </select>
                 </div>
-                <h4>100 items in stock</h4>
-                <p>
-                    Nowadays the lingerie industry is one of the most successful business spheres.
-                    Nowadays the lingerie industry is one of ...
-                </p>*@
+            </div>*@
+                @*<div class="control-group">
+                <label class="control-label"><span>Materials</span></label>
+                <div class="controls">
+                    <select class="span11">
+                        <option>Material 1</option>
+                        <option>Material 2</option>
+                        <option>Material 3</option>
+                        <option>Material 4</option>
+                    </select>
+                </div>
+            </div>
+            <h4>100 items in stock</h4>
+            <p>
+                Nowadays the lingerie industry is one of the most successful business spheres.
+                Nowadays the lingerie industry is one of ...
+            </p>*@
                 <input type="hidden" id="produtoId" name="produtoId" value="@Model.Id" />
                 <p>
                     <button type="submit" class="shopBtn"><span class=" icon-shopping-cart"></span> + Pedido </button>

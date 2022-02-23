@@ -16,7 +16,7 @@ namespace PCPF.Infra.Data.Repository
         }
         public override async Task<IEnumerable<Stock>> ObterTodos()
         {
-            return await DbSet.Include(a=>a.Produto).Where(a=>a.Status==true).ToListAsync();
+            return await DbSet.Include(a=>a.Produto).Where(a=>a.Status==true && a.Produto.Status==true).ToListAsync();
         }
 
         public async Task<IEnumerable<Stock>> ObterStockBaixo()
@@ -36,7 +36,7 @@ namespace PCPF.Infra.Data.Repository
                 inner join
 	                [PCPF].[dbo].Produto as t2
 	                on t1.ProdutoId=t2.Id
-                where t2.QuantidadeMinima > t1.Quantidade and t1.Status=1
+                where t2.QuantidadeMinima > t1.Quantidade and t1.Status=1 and t2.Status=1
             ").Include(a=>a.Produto).ToListAsync();
         }
 
@@ -64,6 +64,11 @@ namespace PCPF.Infra.Data.Repository
 
                 return Task.CompletedTask;
             }
+        }
+
+        public decimal ObterQuantideProduto(int produtoId)
+        {
+            return DbSet.FirstOrDefault(a => a.ProdutoId == produtoId).Quantidade;
         }
     }
 }

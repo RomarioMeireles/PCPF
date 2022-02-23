@@ -8,5 +8,6 @@ namespace PCPF.Domain.Interfaces
     {
         Task<IEnumerable<Stock>> ObterStockBaixo();
         Task DebitarStock(Pedido pedido);
+        decimal ObterQuantideProduto(int produtoId);
     }
 }

@@ -4,6 +4,7 @@ using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
 using PCPF.Domain.Model.Validation;
 using PCPF.Domain.Notificacoes;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -31,7 +32,7 @@ namespace PCPF.Web.MVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Cadastrar()
+        public IActionResult Cadastrar()
         {
             return View();
         }
@@ -47,6 +48,12 @@ namespace PCPF.Web.MVC.Controllers
             _IClienteService.AdicionarCliente(cliente, Password);
             if (!OperacaoValida())
             {
+                var sb = new StringBuilder();
+                foreach(var item in ObterMensagensErro())
+                {
+                    sb.AppendLine(item);
+                }
+                TempData["Error"] = sb.ToString();
                 return View(cliente);
             }
             TempData["Sucesso"] = "Cadastro efectuado com sucesso!";

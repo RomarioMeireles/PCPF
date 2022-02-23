@@ -3,19 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using PCPF.Domain.Interfaces;
 using PCPF.Domain.Interfaces.IServices;
 using PCPF.Domain.Model;
+using PCPF.Domain.Notificacoes;
 using System.Threading.Tasks;
 
 namespace PCPF.Web.MVC.Controllers
 {
     [Route("Catalogo")]
-    public class CatalogoController : Controller
+    public class CatalogoController : BaseController
     {
         private readonly IProdutoRepository _IProdutoRepository;
         private readonly IPedidoService _IPedidoService;
-        public CatalogoController(IProdutoRepository iProdutoRepository, IPedidoService iPedidoService)
+        private readonly IStockRepository _stockRepository;
+        public CatalogoController(IProdutoRepository iProdutoRepository, IPedidoService iPedidoService, IStockRepository IStockRepository, INotificador notificador):base(notificador)
         {
             _IProdutoRepository = iProdutoRepository;
             _IPedidoService = iPedidoService;
+            _stockRepository = IStockRepository;
         }
         [Route("lista-de-produtos")]
         public async Task<IActionResult> Index()
@@ -27,6 +30,8 @@ namespace PCPF.Web.MVC.Controllers
         public async Task<IActionResult> ObterProduto(int id)
         {
             var produto = await _IProdutoRepository.ObterPorId(id);
+            var stock = _stockRepository.ObterQuantideProduto(id);
+            ViewBag.Quantidade = stock;
             return View(produto);
         }
         [Route("AdicionarItemPedido")]
@@ -34,6 +39,18 @@ namespace PCPF.Web.MVC.Controllers
         public async Task<IActionResult> AdicionarItemPedido(int produtoId, int quantidade)
         {
             var produto = await _IProdutoRepository.ObterPorId(produtoId);
+
+            if(quantidade==0)
+            {
+                quantidade = 1;
+            }
+            var stock = _stockRepository.ObterQuantideProduto(produtoId);
+
+            if (quantidade > stock)
+            {
+                TempData["Error"] = "Quantidade em Stock insuficiente.";
+                return Redirect($"/Catalogo/detalhes-produto/{produtoId}");
+            }
 
             var pedidoRascunho = new PedidoRascunho()
             {
